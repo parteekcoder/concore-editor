@@ -1,15 +1,23 @@
 const nodeValidator = `(node, nodes, edges) => {
-let message = { ok: true, err: null };
-nodes.forEach((n) => {
-    if (n.id !== node.id && n.label === node.label) {
+    var regex = /^[A-za-z0-9]+:[A-Za-z0-9.]+$/;
+    let message = { ok: true, err: null };
+    if (!regex.test(node.label)) {
         message = {
             ok: false,
-            err: 'Node with same label exists.',
-        };
+            err: 'Node with incorrect label.',
+        }
+        return message;
     }
-});
-return message;
-}`;
+    nodes.forEach((n) => {
+        if (n.id !== node.id && n.label.split(':')[0] === node.label.split(':')[0]) {
+            message = {
+                ok: false,
+                err: 'Node with same label exists.',
+            };
+        }
+    });
+    return message;
+    }`;
 const edgeValidator = `(edge, nodes, edges) => {
 let message = { ok: true, err: null };
 edges.forEach((e) => {
