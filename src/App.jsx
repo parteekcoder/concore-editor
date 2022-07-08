@@ -10,6 +10,7 @@ import ShareModal from './component/modals/ShareModal';
 import SettingsModal from './component/modals/Settings';
 import FileDragDrop from './component/File-drag-drop';
 import HistoryModal from './component/modals/History';
+import LocalFileBrowser from './component/fileBrowser';
 
 const app = () => {
     const [superState, dispatcher] = useReducer(reducer, initialState);
@@ -26,7 +27,12 @@ const app = () => {
             <FileDragDrop dispatcher={dispatcher} />
             <Header superState={superState} dispatcher={dispatcher} />
             <section className="body" style={{ display: 'flex', overflow: 'hidden' }}>
-                <GraphWorkspace dispatcher={dispatcher} superState={superState} />
+                <div style={{ flex: 20 }}>
+                    <LocalFileBrowser dispatcher={dispatcher} />
+                </div>
+                <div className="graph" style={{ display: 'flex', overflow: 'hidden' }}>
+                    <GraphWorkspace dispatcher={dispatcher} superState={superState} />
+                </div>
             </section>
             <ReactTooltip place="bottom" type="dark" effect="solid" />
         </div>
