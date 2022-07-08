@@ -19,47 +19,57 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
 
     const [fileState, setFileState] = useState({
         files: [
-            {
-                key: '/home/emory/Desktop/github',
-                modified: +Moment().subtract(1, 'hours'),
-                size: 1.5 * 1024 * 1024,
-            },
-            {
-                key: '/concore/demo/sample2.graphml',
-                modified: +Moment().subtract(3, 'days'),
-                size: 545 * 1024,
-            },
-            {
-                key: '/concore/demo/sample3.graphml',
-                modified: +Moment().subtract(3, 'days'),
-                size: 52 * 1024,
-            },
-            {
-                key: '/concore/demo/sampleM.graphml',
-                modified: +Moment().subtract(2, 'months'),
-                size: 13.2 * 1024 * 1024,
-            },
-            {
-                key: '/concore/demo/sampleMFile.graphml',
-                modified: +Moment().subtract(25, 'days'),
-                size: 85 * 1024,
-            },
-            {
-                key: '/concore/demo/sampleP.graphml',
-                modified: +Moment().subtract(15, 'days'),
-                size: 480 * 1024,
-            },
-            {
-                key: '/concore/demo/sampleplot.graphml',
-                modified: +Moment().subtract(15, 'days'),
-                size: 4.2 * 1024 * 1024,
-            },
+            // {
+            //     key: '/home/emory/Desktop/github',
+            //     modified: +Moment().subtract(1, 'hours'),
+            //     size: 1.5 * 1024 * 1024,
+            // },
+            // {
+            //     key: '/concore/demo/sample2.graphml',
+            //     modified: +Moment().subtract(3, 'days'),
+            //     size: 545 * 1024,
+            // },
         ],
     });
 
     const handleCreateFolder = (key) => {
         setFileState((state) => {
-            state.files = state.files.concat([]);
+            state.files = state.files.concat([{
+                key: key,
+            }]);
+            console.log(fileState);
+            return state;
+        });
+    };
+
+    const handleCreateFiles = (files, prefix) => {
+        setFileState((state) => {
+            const newFiles = files.map((file) => {
+                let newKey = prefix;
+                if (prefix !== '' && prefix.substring(prefix.length - 1, prefix.length) !== '/') {
+                    newKey += '/';
+                }
+                newKey += file.name;
+                return {
+                    key: newKey,
+                    size: file.size,
+                    modified: +Moment(),
+                };
+            });
+
+            const uniqueNewFiles = [];
+            newFiles.map((newFile) => {
+                let exists = false;
+                state.files.map((existingFile) => {
+                    if (existingFile.key === newFile.key) {
+                        exists = true;
+                    }
+                });
+                if (!exists) {
+                    uniqueNewFiles.push(newFile);
+                }
+            });
+            state.files = state.files.concat(uniqueNewFiles);
             return state;
         });
     };
@@ -73,17 +83,19 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
                 accept=".graphml"
                 onChange={(e) => {
                     console.log(e.target.files);
-                    console.log(e.target.files.length);
-                    // const { name } = e.target.files[0].name;
-                    // const { lastModified } = e.target.files[0].lastModified;
-                    // const { size } = e.target.files[0].size;
-                    // const { files } = [{
-                    //     key: name,
-                    //     lastModified: lastModified,
-                    //     size: size,
-                    // }];
-                    console.log('Hi');
-                    // setFileState(files);
+                    setFileState((state) => {
+                        for (let i = 0; i < e.target.files.length; i += 1) {
+                            console.log(Moment(e.target.files[0].lastModified).date() - Moment(1318781876406).date());
+                            state.files = state.files.concat([{
+                                key: e.target.files[i].name,
+                                // eslint-disable-next-line max-len
+                                lastModified: Moment(Date(e.target.files[i].lastModified)),
+                                size: e.target.files[i].size,
+                            }]);
+                        }
+                        console.log(fileState);
+                        return state;
+                    });
                     readFile(superState, dispatcher, e);
                 }}
                 multiple
@@ -92,10 +104,10 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
             <FileBrowser
                 files={fileState.files}
                 icons={Icons.FontAwesome(4)}
-                onCreateFolder={handleCreateFolder}
+                // onCreateFolder={handleCreateFolder}
+                // onCreateFiles={handleCreateFiles}
             />
         </div>
     );
 };
-
 export default LocalFileBrowser;
