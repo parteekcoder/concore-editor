@@ -81,16 +81,23 @@ const saveAction = (state, d, fileName) => {
 
 const readFile = (state, setState, e) => {
     if (e.target && e.target.files && e.target.files[0]) {
-        const fr = new FileReader();
-        const projectName = e.target.files[0]
-            .name.split('.').slice(0, -1).join('.').split('-')[0];
-        fr.onload = (x) => {
-            setState({
-                type: T.ADD_GRAPH,
-                payload: { projectName, graphML: x.target.result },
-            });
-        };
-        fr.readAsText(e.target.files[0]);
+        // eslint-disable-next-line prefer-const
+        // let filer = [];
+        for (let i = 0; i < e.target.files.length; i += 1) {
+            console.log('new file');
+            const fr = new FileReader();
+            // filer.push(fr);
+            const projectName = e.target.files[i]
+                .name.split('.').slice(0, -1).join('.').split('-')[0];
+            console.log(projectName);
+            fr.onload = (x) => {
+                setState({
+                    type: T.ADD_GRAPH,
+                    payload: { projectName, graphML: x.target.result },
+                });
+            };
+            fr.readAsText(e.target.files[i]);
+        }
     }
 };
 

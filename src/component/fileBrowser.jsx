@@ -64,58 +64,35 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
         });
     };
 
-    const folderPicker = (e) => {
-        console.log(e.target.files[0]);
-        // eslint-disable-next-line global-require
-        const os = require('os');
-        console.log(os.homedir());
-    };
-
     return (
         <div>
-            <input type="file" id="input" multiple onChange={folderPicker} />
             <input
                 type="file"
                 ref={fileRef}
                 onClick={(e) => { e.target.value = null; }}
-                // style={{ display: 'none' }}
                 accept=".graphml"
                 onChange={(e) => {
                     console.log(e.target.files);
-                    const { name } = e.target.files[0].name;
-                    const { lastModified } = e.target.files[0].lastModified;
-                    const { size } = e.target.files[0].size;
-                    const { files } = [{
-                        key: name,
-                        lastModified: lastModified,
-                        size: size,
-                    }];
+                    console.log(e.target.files.length);
+                    // const { name } = e.target.files[0].name;
+                    // const { lastModified } = e.target.files[0].lastModified;
+                    // const { size } = e.target.files[0].size;
+                    // const { files } = [{
+                    //     key: name,
+                    //     lastModified: lastModified,
+                    //     size: size,
+                    // }];
                     console.log('Hi');
-                    setFileState(files);
+                    // setFileState(files);
                     readFile(superState, dispatcher, e);
                 }}
                 multiple
             />
             {/* eslint-disable-next-line react/button-has-type */}
-            <button onClick={(e) => {
-                // let fileHandle = [];
-                // [fileHandle] = window.showOpenFilePicker();
-                // console.log(fileHandle);
-            }}
-            >
-                {'Hi '}
-            </button>
             <FileBrowser
                 files={fileState.files}
                 icons={Icons.FontAwesome(4)}
                 onCreateFolder={handleCreateFolder}
-                // onCreateFiles={this.handleCreateFiles}
-                // onMoveFolder={this.handleRenameFolder}
-                // onMoveFile={this.handleRenameFile}
-                // onRenameFolder={this.handleRenameFolder}
-                // onRenameFile={this.handleRenameFile}
-                // onDeleteFolder={this.handleDeleteFolder}
-                // onDeleteFile={this.handleDeleteFile}
             />
         </div>
     );
