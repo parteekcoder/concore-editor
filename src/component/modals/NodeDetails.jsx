@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import './nodeDetails.css';
 import ColorBox from './ColorBox';
+import localStorageManager from '../../graph-builder/local-storage-manager';
 
 const NodeDetails = ({
     data, setData, submit, labelAllowed,
@@ -10,6 +11,8 @@ const NodeDetails = ({
     const inputRef = useCallback((node) => node && node.focus(), []);
     const textRef = createRef();
     const [widthSet, setWidthSet] = useState(false);
+    const [labelName, setLabelName] = useState('');
+    const [labelFile, setLabelFile] = useState('');
 
     const setStyle = (prop) => {
         setData({ ...data, style: { ...data.style, ...prop } });
@@ -74,15 +77,38 @@ const NodeDetails = ({
                             type="text"
                             required
                             label="Node Label"
-                            value={data.label}
                             placeholder="Enter Node Label"
-                            onChange={(e) => setData({ ...data, label: e.target.value })}
+                            onChange={(e) => {
+                                setLabelName(e.target.value);
+                                if (labelFile) setData({ ...data, label: e.target.value + labelFile });
+                            }}
+                        />
+
+                        <input
+                            className="nodeLabelFile"
+                            type="text"
+                            required
+                            label="Node Label file"
+                            placeholder="Select file"
+                            onChange={(e) => {
+                                setLabelFile(e.target.value);
+                                if (labelName) {
+                                    let lname = labelName;
+                                    if (labelName.slice(-1) !== ':') {
+                                        setLabelName(`${labelName}:`);
+                                        lname += ':';
+                                    }
+                                    setData({ ...data, label: lname + e.target.value });
+                                }
+                            }}
                             list="files"
                         />
                         <datalist id="files">
                             {
-                                // eslint-disable-next-line max-len
-                                JSON.parse(window.localStorage.getItem('fileList')).files.map((item, index) => <option label="File Dropdown" value={`:${item.key.toString()}`} />)
+                                localStorageManager.getFileList()
+                                    // eslint-disable-next-line max-len, jsx-a11y/control-has-associated-label
+                                    ? JSON.parse(localStorageManager.getFileList()).files.map((item, index) => <option value={`${item.key.toString()}`} />)
+                                    : ''
                             }
                         </datalist>
                     </>
