@@ -1,19 +1,16 @@
-# DHGWorkflow
-DHGWorkflow is a visual Directed Hypergraph Workflow Composer.
+# The _concore_ Editor
 
-# Developers
-For developers, this tool can be more than just a DHGWorkflow Editor. We aim at building an open-source generic simple graph builder which can be used for various applications that require some kind of building graphs by a user. It can easily be integrated with any web application and can even be customised to add custom logics.
+This is a fork of DHGWorkflow, visual Directed Hypergraph Workflow Composer, finetuned to operate as a frontend for _concore_.
 
-DHGWorkflow is built by adding custom logic over this Generic Graph Builder. 
+Active development of the _concore_ Editor happens in the dev branch. Please check it out!
 
-Key Features of this graph builder:
+Key Features of the _concore_ Editor:
 * Export-import graph as a graphml file.
 * Export graph as JPEG/PNG
 * Undo-Redo Actions
 * Drag Drop Nodes
 * Create Edges easily
 * Bend Edges
-* Resize and customise nodes and edges.  
 
 and many more!
 
