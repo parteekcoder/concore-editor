@@ -19,19 +19,10 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
 
     const [fileState, setFileState] = useState({
         files: [
-            // {
-            //     key: '/home/emory/Desktop/github',
-            //     modified: +Moment().subtract(1, 'hours'),
-            //     size: 1.5 * 1024 * 1024,
-            // },
-            // {
-            //     key: '/concore/demo/sample2.graphml',
-            //     modified: +Moment().subtract(3, 'days'),
-            //     size: 545 * 1024,
-            // },
         ],
     });
 
+    // TODO
     const handleCreateFolder = (key) => {
         setFileState((state) => {
             state.files = state.files.concat([{
@@ -42,6 +33,7 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
         });
     };
 
+    // TODO
     const handleCreateFiles = (files, prefix) => {
         setFileState((state) => {
             const newFiles = files.map((file) => {
@@ -101,8 +93,6 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
             <FileBrowser
                 files={fileState.files}
                 icons={Icons.FontAwesome(4)}
-                // onCreateFolder={handleCreateFolder}
-                // onCreateFiles={handleCreateFiles}
             />
         </div>
     );
