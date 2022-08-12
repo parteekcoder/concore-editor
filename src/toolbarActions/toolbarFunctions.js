@@ -101,14 +101,10 @@ const readFile = (state, setState, file) => {
 
 const readTextFile = (state, setState, file) => {
     if (file) {
-        const fr = new FileReader();
-        fr.onload = (x) => {
-            setState({
-                type: T.EDIT_TEXTFILE,
-                payload: { show: true, fileObj: x.target.result },
-            });
-        };
-        fr.readAsText(file);
+        setState({
+            type: T.EDIT_TEXTFILE,
+            payload: { show: true, fileObj: file },
+        });
     }
 };
 
