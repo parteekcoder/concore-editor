@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import FileBrowser, { Icons } from 'react-keyed-file-browser';
 import Moment from 'moment';
 import '../../node_modules/react-keyed-file-browser/dist/react-keyed-file-browser.css';
-import { readFile } from '../toolbarActions/toolbarFunctions';
+import { readFile, readTextFile } from '../toolbarActions/toolbarFunctions';
 import { actionType as T } from '../reducer';
 
 const LocalFileBrowser = ({ superState, dispatcher }) => {
@@ -31,6 +31,12 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
             // },
         ],
     });
+
+    useEffect(() => {
+        // const allFiles = window.localStorage.getItem('fileList');
+        console.log('Arrey bahi');
+        // window.localStorage.setItem('fileList', JSON.stringify(fileState));
+    }, [fileState]);
 
     const handleCreateFolder = (key) => {
         setFileState((state) => {
@@ -74,6 +80,13 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
         });
     };
 
+    const handleSelectFile = (data) => {
+        if (data.fileObj.name.split('.').pop() === 'graphml') readFile(superState, dispatcher, data.fileObj);
+        else {
+            readTextFile(superState, dispatcher, data.fileObj);
+        }
+    };
+
     return (
         <div>
             <input
@@ -85,15 +98,13 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
                         for (let i = 0; i < e.target.files.length; i += 1) {
                             state.files = state.files.concat([{
                                 key: e.target.files[i].name,
-                                lastModified: Moment(Date(e.target.files[i].lastModified)),
+                                lastModified: +Moment(),
                                 size: e.target.files[i].size,
+                                fileObj: e.target.files[i],
                             }]);
                         }
                         return state;
                     });
-                    console.log(JSON.stringify(fileState));
-                    window.localStorage.setItem('fileList', JSON.stringify(fileState));
-                    readFile(superState, dispatcher, e);
                 }}
                 directory
                 webkitdirectory="true"
@@ -101,6 +112,8 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
             <FileBrowser
                 files={fileState.files}
                 icons={Icons.FontAwesome(4)}
+                onSelectFile={handleSelectFile}
+                detailRenderer={() => null}
                 // onCreateFolder={handleCreateFolder}
                 // onCreateFiles={handleCreateFiles}
             />

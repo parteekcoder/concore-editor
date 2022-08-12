@@ -19,6 +19,7 @@ const CodeEdit = ({
         >
             <div className="docStr">{parseMD(docString)}</div>
             <br />
+            {}
             <textarea
                 className="preTextField"
                 value={pre}
