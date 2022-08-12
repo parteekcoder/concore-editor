@@ -9,7 +9,7 @@ import {
 } from 'react-icons/fi';
 
 import {
-    createNode, editElement, deleteElem, downloadImg, saveAction,
+    createNode, editElement, deleteElem, downloadImg, saveAction, saveLocal,
     readFile, clearAll, undo, redo, openShareModal, openSettingModal,
     viewHistory,
 } from './toolbarFunctions';
@@ -40,6 +40,7 @@ const toolbarList = (state) => [
             { fn: () => state.curGraphInstance && state.curGraphInstance.pushToServer(), name: 'Save on Server' },
             { fn: () => saveAction(s, d), name: 'Save' },
             { fn: () => saveAction(s, d, prompt('File Name:')), name: 'Save As' },
+            { fn: () => saveLocal(s, d), name: 'Save Local' },
         ],
         active: true,
     },

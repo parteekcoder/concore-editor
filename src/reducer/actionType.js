@@ -30,6 +30,7 @@ const actionType = {
     SET_ZOOM_LEVEL: 'SET_ZOOM_LEVEL',
     SET_EDIT_DETAILS_MODAL: 'SET_EDIT_DETAILS_MODAL',
     SET_NEW_GRAPH_MODAL: 'SET_NEW_GRAPH_MODAL',
+    EDIT_TEXTFILE: 'EDIT_TEXTFILE',
 };
 
 export default zealit(actionType);
