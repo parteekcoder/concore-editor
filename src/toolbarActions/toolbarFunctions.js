@@ -103,23 +103,16 @@ const readFile = (state, setState, file) => {
 };
 
 const readTextFile = (state, setState, file) => {
-    setState({
-        type: T.EDIT_TEXTFILE,
-        payload: { show: true, fileObj: file },
-    });
-    // if (file) {
-    //     const fr = new FileReader();
-    //     const projectName = file.name;
-    //     console.log(projectName);
-    //     fr.onload = (x) => {
-    //         setState({
-    //             type: T.EDIT_TEXTFILE,
-    //             payload: true,
-    //         });
-    //     };
-    //     // fr.readAsText(file);
-    // }
-    // return 'hi';
+    if (file) {
+        const fr = new FileReader();
+        fr.onload = (x) => {
+            setState({
+                type: T.EDIT_TEXTFILE,
+                payload: { show: true, fileObj: x.target.result },
+            });
+        };
+        fr.readAsText(file);
+    }
 };
 
 const newProject = (state, setState) => {

@@ -13,12 +13,14 @@ const FileEditModal = ({ superState, dispatcher }) => {
         //     edgeValidator: `(edge, nodes, edges, type)=>{${edgeValidator}}`,
         // });
         dispatcher({ type: T.EDIT_TEXTFILE, payload: { show: false } });
+        console.log(superState);
     };
-    const fr = new FileReader();
-    fr.onload = (x) => {
-        console.log(x);
-    };
-    // fr.readAsText(superState.fileObj);
+
+    useEffect(() => {
+        if (superState.fileObj) {
+            setCodeStuff(superState.fileObj);
+        }
+    }, [superState.fileObj]);
 
     return (
         <Modal
@@ -28,13 +30,13 @@ const FileEditModal = ({ superState, dispatcher }) => {
         >
             <div className="File Edit Container">
                 <div>
-                    {/* <h3></h3> */}
                     <CodeEdit
                         pre=""
                         post=""
                         value={codeStuff}
                         onChange={(e) => setCodeStuff(e.target.value)}
-                        height={200}
+                        height={350}
+                        width={300}
                         docString=""
                     />
                 </div>
