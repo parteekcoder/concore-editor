@@ -75,10 +75,8 @@ const downloadImg = (state, setState, format) => {
     getGraphFun(state).downloadImg(format);
 };
 
+// TODO
 const saveLocal = (state, d) => {
-    console.log(state);
-    console.log(d);
-    console.log('Saveeeee');
 };
 
 const saveAction = (state, d, fileName) => {
@@ -89,7 +87,6 @@ const readFile = (state, setState, file) => {
     if (file) {
         const fr = new FileReader();
         const projectName = file.name;
-        console.log(projectName);
         if (file.name.split('.').pop() === 'graphml') {
             fr.onload = (x) => {
                 setState({
