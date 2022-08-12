@@ -19,19 +19,10 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
 
     const [fileState, setFileState] = useState({
         files: [
-            // {
-            //     key: '/home/emory/Desktop/github',
-            //     modified: +Moment().subtract(1, 'hours'),
-            //     size: 1.5 * 1024 * 1024,
-            // },
-            // {
-            //     key: '/concore/demo/sample2.graphml',
-            //     modified: +Moment().subtract(3, 'days'),
-            //     size: 545 * 1024,
-            // },
         ],
     });
 
+    // TODO
     const handleCreateFolder = (key) => {
         setFileState((state) => {
             state.files = state.files.concat([{
@@ -42,6 +33,7 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
         });
     };
 
+    // TODO
     const handleCreateFiles = (files, prefix) => {
         setFileState((state) => {
             const newFiles = files.map((file) => {
@@ -80,32 +72,27 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
                 type="file"
                 ref={fileRef}
                 onClick={(e) => { e.target.value = null; }}
-                accept=".graphml"
                 onChange={(e) => {
-                    console.log(e.target.files);
                     setFileState((state) => {
                         for (let i = 0; i < e.target.files.length; i += 1) {
-                            console.log(Moment(e.target.files[0].lastModified).date() - Moment(1318781876406).date());
                             state.files = state.files.concat([{
                                 key: e.target.files[i].name,
-                                // eslint-disable-next-line max-len
                                 lastModified: Moment(Date(e.target.files[i].lastModified)),
                                 size: e.target.files[i].size,
                             }]);
                         }
-                        console.log(fileState);
                         return state;
                     });
+                    console.log(JSON.stringify(fileState));
+                    window.localStorage.setItem('fileList', JSON.stringify(fileState));
                     readFile(superState, dispatcher, e);
                 }}
-                multiple
+                directory
+                webkitdirectory="true"
             />
-            {/* eslint-disable-next-line react/button-has-type */}
             <FileBrowser
                 files={fileState.files}
                 icons={Icons.FontAwesome(4)}
-                // onCreateFolder={handleCreateFolder}
-                // onCreateFiles={handleCreateFiles}
             />
         </div>
     );
