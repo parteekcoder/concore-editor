@@ -1,8 +1,8 @@
 import { actionType as T } from '../../reducer';
 import GraphLoadSave from './5-load-save';
-import {
-    postGraph, updateGraph, forceUpdateGraph, getGraph, getGraphWithHashCheck,
-} from '../../serverCon/crud_http';
+// import {
+//     postGraph, updateGraph, forceUpdateGraph, getGraph, getGraphWithHashCheck,
+// } from '../../serverCon/crud_http';
 
 class GraphServer extends GraphLoadSave {
     set(config) {

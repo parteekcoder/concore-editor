@@ -1,17 +1,17 @@
 /* eslint-disable no-alert */
 import {
-    FaSave, FaUndo, FaRedo, FaTrash, FaFileImport, FaPlus, FaDownload, FaEdit, FaRegTimesCircle, FaShare, FaRegSun,
-    FaHistory,
+    FaSave, FaUndo, FaRedo, FaTrash, FaFileImport, FaPlus, FaDownload, FaEdit, FaRegTimesCircle, FaShare, FaHistory,
+    // FaRegSun,
 } from 'react-icons/fa';
 
-import {
-    FiChevronDown, FiChevronsDown, FiChevronsUp, FiChevronUp,
-} from 'react-icons/fi';
+// import {
+//     FiChevronDown, FiChevronsDown, FiChevronsUp, FiChevronUp,
+// } from 'react-icons/fi';
 
 import {
-    createNode, editElement, deleteElem, downloadImg, saveAction, saveLocal,
-    readFile, clearAll, undo, redo, openShareModal, openSettingModal,
-    viewHistory,
+    createNode, editElement, deleteElem, downloadImg, saveAction,
+    readFile, clearAll, undo, redo, openShareModal, viewHistory,
+    // openSettingModal,
 } from './toolbarFunctions';
 
 const toolbarList = (state) => [
@@ -40,7 +40,8 @@ const toolbarList = (state) => [
             { fn: () => state.curGraphInstance && state.curGraphInstance.pushToServer(), name: 'Save on Server' },
             { fn: () => saveAction(s, d), name: 'Save' },
             { fn: () => saveAction(s, d, prompt('File Name:')), name: 'Save As' },
-            { fn: () => saveLocal(s, d), name: 'Save Local' },
+            // TODO
+            // { fn: () => saveLocal(s, d), name: 'Save Local' },
         ],
         active: true,
     },
