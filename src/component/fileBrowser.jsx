@@ -40,7 +40,7 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
         // }
         window.localStorage.setItem('fileList', JSON.stringify(fileState));
     }, [fileState]);
-    
+
     // const handleCreateFolder = (key) => {
     //     setFileState((state) => {
     //         state.files = state.files.concat([{

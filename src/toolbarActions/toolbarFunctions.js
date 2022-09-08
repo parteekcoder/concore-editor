@@ -79,7 +79,6 @@ const downloadImg = (state, setState, format) => {
 // const saveLocal = (state, d) => {
 // };
 
-
 const saveAction = (state, d, fileName) => {
     getGraphFun(state).saveToDisk(fileName);
 };
