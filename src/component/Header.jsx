@@ -41,7 +41,7 @@ const Header = ({ superState, dispatcher }) => {
                 {
                     superState.curGraphInstance ? `${
                         superState.curGraphInstance.projectName
-                    } - DHGWorkflow Editor` : ''
+                    } - concore Editor` : ''
                 }
             </section>
             <section className="toolbar">
