@@ -2,7 +2,7 @@ import React, {
     useCallback, useEffect, useState, createRef,
 } from 'react';
 import './nodeDetails.css';
-import ColorBox from './ColorBox';
+// import ColorBox from './ColorBox';
 import localStorageManager from '../../graph-builder/local-storage-manager';
 
 const NodeDetails = ({
@@ -10,7 +10,7 @@ const NodeDetails = ({
 }) => {
     const inputRef = useCallback((node) => node && node.focus(), []);
     const textRef = createRef();
-    const [widthSet, setWidthSet] = useState(false);
+    const [widthSet] = useState(false);
     const [labelName, setLabelName] = useState('');
     const [labelFile, setLabelFile] = useState('');
 
@@ -41,7 +41,7 @@ const NodeDetails = ({
                 </div>
             </div>
             <div className="form" style={{ padding: 20 }}>
-                <div> Shape</div>
+                {/* <div> Shape</div>
                 <div>
                     <label htmlFor="rectangle">
                         <input
@@ -66,7 +66,7 @@ const NodeDetails = ({
                         Ellipse
                     </label>
                 </div>
-                <div />
+                <div /> */}
 
                 {labelAllowed ? <div> Label</div> : ''}
                 {labelAllowed ? (
@@ -107,13 +107,13 @@ const NodeDetails = ({
                             {
                                 localStorageManager.getFileList()
                                     // eslint-disable-next-line max-len, jsx-a11y/control-has-associated-label
-                                    ? JSON.parse(localStorageManager.getFileList()).files.map((item, index) => <option value={`${item.key.toString()}`} />)
+                                    ? JSON.parse(localStorageManager.getFileList()).files.map((item) => <option value={`${item.key.toString()}`} />)
                                     : ''
                             }
                         </datalist>
                     </>
                 ) : ''}
-                <div> Width</div>
+                {/* <div> Width</div>
                 <input
                     type="number"
                     value={data.style.width}
@@ -123,42 +123,42 @@ const NodeDetails = ({
                             width: Math.min(500, e.target.value),
                         });
                     }}
-                />
+                /> */}
 
-                <div> Height</div>
+                {/* <div> Height</div>
                 <input
                     type="number"
                     value={data.style.height}
                     onChange={(e) => setStyle({ height: Math.min(200, e.target.value) })}
-                />
+                /> */}
 
-                <div> Background Color</div>
+                {/* <div> Background Color</div>
                 <ColorBox
                     color={data.style.backgroundColor}
                     setColor={(color) => setStyle({ backgroundColor: color })}
                     type="light"
-                />
+                /> */}
 
-                <div> Border Color</div>
+                {/* <div> Border Color</div>
                 <ColorBox
                     color={data.style.borderColor}
                     setColor={(color) => setStyle({ borderColor: color })}
                     type="dark"
-                />
+                /> */}
 
-                <div> Border Width</div>
+                {/* <div> Border Width</div>
                 <input
                     type="number"
                     value={data.style.borderWidth}
                     onChange={(e) => setStyle({ borderWidth: Math.min(30, e.target.value) })}
-                />
-                <div> Opacity</div>
+                /> */}
+                {/* <div> Opacity</div>
                 <input
                     type="number"
                     step=".01"
                     value={data.style.opacity}
                     onChange={(e) => setStyle({ opacity: Math.min(1, Math.max(0, e.target.value)) })}
-                />
+                /> */}
             </div>
         </div>
     );

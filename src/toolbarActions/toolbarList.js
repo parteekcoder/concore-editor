@@ -1,17 +1,17 @@
 /* eslint-disable no-alert */
 import {
-    FaSave, FaUndo, FaRedo, FaTrash, FaFileImport, FaPlus, FaDownload, FaEdit, FaRegTimesCircle, FaShare, FaRegSun,
-    FaHistory,
+    FaSave, FaUndo, FaRedo, FaTrash, FaFileImport, FaPlus, FaDownload, FaEdit, FaRegTimesCircle, FaShare, FaHistory,
+    // FaRegSun,
 } from 'react-icons/fa';
 
-import {
-    FiChevronDown, FiChevronsDown, FiChevronsUp, FiChevronUp,
-} from 'react-icons/fi';
+// import {
+//     FiChevronDown, FiChevronsDown, FiChevronsUp, FiChevronUp,
+// } from 'react-icons/fi';
 
 import {
     createNode, editElement, deleteElem, downloadImg, saveAction,
-    readFile, clearAll, undo, redo, openShareModal, openSettingModal,
-    viewHistory,
+    readFile, clearAll, undo, redo, openShareModal, viewHistory,
+    // openSettingModal,
 } from './toolbarFunctions';
 
 const toolbarList = (state) => [
@@ -40,6 +40,8 @@ const toolbarList = (state) => [
             { fn: () => state.curGraphInstance && state.curGraphInstance.pushToServer(), name: 'Save on Server' },
             { fn: () => saveAction(s, d), name: 'Save' },
             { fn: () => saveAction(s, d, prompt('File Name:')), name: 'Save As' },
+            // TODO
+            // { fn: () => saveLocal(s, d), name: 'Save Local' },
         ],
         active: true,
     },
@@ -94,43 +96,45 @@ const toolbarList = (state) => [
         active: true,
     },
     { type: 'vsep' },
-    {
-        type: 'action',
-        text: 'Push',
-        icon: FiChevronUp,
-        action: () => state.curGraphInstance && state.curGraphInstance.pushToServer(),
-        active: state.curGraphInstance && state.isWorkflowOnServer,
-    },
-    {
-        type: 'action',
-        text: 'Pull',
-        icon: FiChevronDown,
-        action: () => state.curGraphInstance && state.curGraphInstance.pullFromServer(),
-        active: state.curGraphInstance && state.isWorkflowOnServer,
-    },
-    {
-        type: 'action',
-        text: 'Force Push',
-        icon: FiChevronsUp,
-        action: () => state.curGraphInstance && state.curGraphInstance.forcePushToServer(),
-        active: state.curGraphInstance && state.isWorkflowOnServer,
-    },
-    {
-        type: 'action',
-        text: 'Force Pull',
-        icon: FiChevronsDown,
-        action: () => state.curGraphInstance && state.curGraphInstance.forcePullFromServer(),
-        active: state.curGraphInstance && state.isWorkflowOnServer,
-    },
-    { type: 'vsep' },
+    // Not being implemented in version 1
+    // {
+    //     type: 'action',
+    //     text: 'Push',
+    //     icon: FiChevronUp,
+    //     action: () => state.curGraphInstance && state.curGraphInstance.pushToServer(),
+    //     active: state.curGraphInstance && state.isWorkflowOnServer,
+    // },
+    // {
+    //     type: 'action',
+    //     text: 'Pull',
+    //     icon: FiChevronDown,
+    //     action: () => state.curGraphInstance && state.curGraphInstance.pullFromServer(),
+    //     active: state.curGraphInstance && state.isWorkflowOnServer,
+    // },
+    // {
+    //     type: 'action',
+    //     text: 'Force Push',
+    //     icon: FiChevronsUp,
+    //     action: () => state.curGraphInstance && state.curGraphInstance.forcePushToServer(),
+    //     active: state.curGraphInstance && state.isWorkflowOnServer,
+    // },
+    // {
+    //     type: 'action',
+    //     text: 'Force Pull',
+    //     icon: FiChevronsDown,
+    //     action: () => state.curGraphInstance && state.curGraphInstance.forcePullFromServer(),
+    //     active: state.curGraphInstance && state.isWorkflowOnServer,
+    // },
+    // { type: 'vsep' },
     { type: 'space' },
-    {
-        type: 'action',
-        text: 'Settings',
-        icon: FaRegSun,
-        action: openSettingModal,
-        active: true,
-    },
+    // Not being implemented in version 1
+    // {
+    //     type: 'action',
+    //     text: 'Settings',
+    //     icon: FaRegSun,
+    //     action: openSettingModal,
+    //     active: true,
+    // },
     {
         type: 'action',
         text: 'Share',

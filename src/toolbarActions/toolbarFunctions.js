@@ -75,27 +75,36 @@ const downloadImg = (state, setState, format) => {
     getGraphFun(state).downloadImg(format);
 };
 
+// TODO
+// const saveLocal = (state, d) => {
+// };
+
 const saveAction = (state, d, fileName) => {
     getGraphFun(state).saveToDisk(fileName);
 };
 
-const readFile = (state, setState, e) => {
-    if (e.target && e.target.files && e.target.files[0]) {
-        // eslint-disable-next-line prefer-const
-        for (let i = 0; i < e.target.files.length; i += 1) {
-            const fr = new FileReader();
-            const projectName = e.target.files[i]
-                .name.split('.').slice(0, -1).join('.').split('-')[0];
-            if (e.target.files[i].name.split('.').pop() === 'graphml') {
-                fr.onload = (x) => {
-                    setState({
-                        type: T.ADD_GRAPH,
-                        payload: { projectName, graphML: x.target.result },
-                    });
-                };
-                fr.readAsText(e.target.files[i]);
-            }
+const readFile = (state, setState, file) => {
+    if (file) {
+        const fr = new FileReader();
+        const projectName = file.name;
+        if (file.name.split('.').pop() === 'graphml') {
+            fr.onload = (x) => {
+                setState({
+                    type: T.ADD_GRAPH,
+                    payload: { projectName, graphML: x.target.result },
+                });
+            };
+            fr.readAsText(file);
         }
+    }
+};
+
+const readTextFile = (state, setState, file) => {
+    if (file) {
+        setState({
+            type: T.EDIT_TEXTFILE,
+            payload: { show: true, fileObj: file },
+        });
     }
 };
 
@@ -115,7 +124,7 @@ const editDetails = (state, setState) => {
 };
 
 const undo = (state) => {
-    if (getGraphFun(state))getGraphFun(state).undo();
+    if (getGraphFun(state)) getGraphFun(state).undo();
 };
 const redo = (state) => {
     getGraphFun(state).redo();
@@ -135,6 +144,6 @@ const viewHistory = (state, setState) => {
 
 export {
     createNode, editElement, deleteElem, downloadImg, saveAction,
-    readFile, newProject, clearAll, editDetails, undo, redo,
+    readFile, readTextFile, newProject, clearAll, editDetails, undo, redo,
     openShareModal, openSettingModal, viewHistory,
 };

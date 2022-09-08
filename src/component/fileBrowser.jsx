@@ -23,48 +23,48 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
     });
 
     // TODO
-    const handleCreateFolder = (key) => {
-        setFileState((state) => {
-            state.files = state.files.concat([{
-                key: key,
-            }]);
-            console.log(fileState);
-            return state;
-        });
-    };
+    // const handleCreateFolder = (key) => {
+    //     setFileState((state) => {
+    //         state.files = state.files.concat([{
+    //             key: key,
+    //         }]);
+    //         console.log(fileState);
+    //         return state;
+    //     });
+    // };
 
     // TODO
-    const handleCreateFiles = (files, prefix) => {
-        setFileState((state) => {
-            const newFiles = files.map((file) => {
-                let newKey = prefix;
-                if (prefix !== '' && prefix.substring(prefix.length - 1, prefix.length) !== '/') {
-                    newKey += '/';
-                }
-                newKey += file.name;
-                return {
-                    key: newKey,
-                    size: file.size,
-                    modified: +Moment(),
-                };
-            });
+    // const handleCreateFiles = (files, prefix) => {
+    //     setFileState((state) => {
+    //         const newFiles = files.map((file) => {
+    //             let newKey = prefix;
+    //             if (prefix !== '' && prefix.substring(prefix.length - 1, prefix.length) !== '/') {
+    //                 newKey += '/';
+    //             }
+    //             newKey += file.name;
+    //             return {
+    //                 key: newKey,
+    //                 size: file.size,
+    //                 modified: +Moment(),
+    //             };
+    //         });
 
-            const uniqueNewFiles = [];
-            newFiles.map((newFile) => {
-                let exists = false;
-                state.files.map((existingFile) => {
-                    if (existingFile.key === newFile.key) {
-                        exists = true;
-                    }
-                });
-                if (!exists) {
-                    uniqueNewFiles.push(newFile);
-                }
-            });
-            state.files = state.files.concat(uniqueNewFiles);
-            return state;
-        });
-    };
+    //         const uniqueNewFiles = [];
+    //         newFiles.map((newFile) => {
+    //             let exists = false;
+    //             state.files.map((existingFile) => {
+    //                 if (existingFile.key === newFile.key) {
+    //                     exists = true;
+    //                 }
+    //             });
+    //             if (!exists) {
+    //                 uniqueNewFiles.push(newFile);
+    //             }
+    //         });
+    //         state.files = state.files.concat(uniqueNewFiles);
+    //         return state;
+    //     });
+    // };
 
     return (
         <div>
@@ -83,7 +83,6 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
                         }
                         return state;
                     });
-                    console.log(JSON.stringify(fileState));
                     window.localStorage.setItem('fileList', JSON.stringify(fileState));
                     readFile(superState, dispatcher, e);
                 }}
