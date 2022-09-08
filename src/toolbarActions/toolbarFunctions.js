@@ -76,8 +76,8 @@ const downloadImg = (state, setState, format) => {
 };
 
 // TODO
-const saveLocal = (state, d) => {
-};
+// const saveLocal = (state, d) => {
+// };
 
 const saveAction = (state, d, fileName) => {
     getGraphFun(state).saveToDisk(fileName);
@@ -144,6 +144,6 @@ const viewHistory = (state, setState) => {
 
 export {
     createNode, editElement, deleteElem, downloadImg, saveAction,
-    saveLocal, readFile, readTextFile, newProject, clearAll, editDetails, undo, redo,
+    readFile, readTextFile, newProject, clearAll, editDetails, undo, redo,
     openShareModal, openSettingModal, viewHistory,
 };

@@ -2,7 +2,7 @@ import React, {
     useCallback, useEffect, useState, createRef,
 } from 'react';
 import './nodeDetails.css';
-import ColorBox from './ColorBox';
+// import ColorBox from './ColorBox';
 import localStorageManager from '../../graph-builder/local-storage-manager';
 
 const NodeDetails = ({
@@ -10,7 +10,7 @@ const NodeDetails = ({
 }) => {
     const inputRef = useCallback((node) => node && node.focus(), []);
     const textRef = createRef();
-    const [widthSet, setWidthSet] = useState(false);
+    const [widthSet] = useState(false);
     const [labelName, setLabelName] = useState('');
     const [labelFile, setLabelFile] = useState('');
 
@@ -107,7 +107,7 @@ const NodeDetails = ({
                             {
                                 localStorageManager.getFileList()
                                     // eslint-disable-next-line max-len, jsx-a11y/control-has-associated-label
-                                    ? JSON.parse(localStorageManager.getFileList()).files.map((item, index) => <option value={`${item.key.toString()}`} />)
+                                    ? JSON.parse(localStorageManager.getFileList()).files.map((item) => <option value={`${item.key.toString()}`} />)
                                     : ''
                             }
                         </datalist>
