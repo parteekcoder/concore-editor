@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import FileBrowser, { Icons } from 'react-keyed-file-browser';
 import Moment from 'moment';
 import '../../node_modules/react-keyed-file-browser/dist/react-keyed-file-browser.css';
-import { readFile } from '../toolbarActions/toolbarFunctions';
+import { readFile, readTextFile } from '../toolbarActions/toolbarFunctions';
 import { actionType as T } from '../reducer';
 
 const LocalFileBrowser = ({ superState, dispatcher }) => {
@@ -19,8 +19,27 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
 
     const [fileState, setFileState] = useState({
         files: [
+            // {
+            //     key: '/home/emory/Desktop/github',
+            //     modified: +Moment().subtract(1, 'hours'),
+            //     size: 1.5 * 1024 * 1024,
+            // },
+            // {
+            //     key: '/concore/demo/sample2.graphml',
+            //     modified: +Moment().subtract(3, 'days'),
+            //     size: 545 * 1024,
+            // },
         ],
     });
+
+    // TODO
+    useEffect(() => {
+        // if(window.localStorage.getItem('fileList')) {
+        //     const allFiles = window.localStorage.getItem('fileList');
+        //     setFileState({ files: allFiles });
+        // }
+        window.localStorage.setItem('fileList', JSON.stringify(fileState));
+    }, [fileState]);
 
     // TODO
     const handleCreateFolder = (key) => {
@@ -33,6 +52,7 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
         });
     };
 
+    // TODO
     // TODO
     const handleCreateFiles = (files, prefix) => {
         setFileState((state) => {
@@ -66,6 +86,13 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
         });
     };
 
+    const handleSelectFile = (data) => {
+        if (data.fileObj.name.split('.').pop() === 'graphml') readFile(superState, dispatcher, data.fileObj);
+        else {
+            readTextFile(superState, dispatcher, data.fileObj);
+        }
+    };
+
     return (
         <div>
             <input
@@ -77,15 +104,14 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
                         for (let i = 0; i < e.target.files.length; i += 1) {
                             state.files = state.files.concat([{
                                 key: e.target.files[i].name,
-                                lastModified: Moment(Date(e.target.files[i].lastModified)),
+                                lastModified: +Moment(),
                                 size: e.target.files[i].size,
+                                fileObj: e.target.files[i],
                             }]);
                         }
                         return state;
                     });
-                    console.log(JSON.stringify(fileState));
                     window.localStorage.setItem('fileList', JSON.stringify(fileState));
-                    readFile(superState, dispatcher, e);
                 }}
                 directory
                 webkitdirectory="true"
@@ -93,6 +119,11 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
             <FileBrowser
                 files={fileState.files}
                 icons={Icons.FontAwesome(4)}
+                onSelectFile={handleSelectFile}
+                detailRenderer={() => null}
+                // TODO
+                // onCreateFolder={handleCreateFolder}
+                // onCreateFiles={handleCreateFiles}
             />
         </div>
     );
