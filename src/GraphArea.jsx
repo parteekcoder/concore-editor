@@ -10,7 +10,7 @@ function Graph({
 }) {
     const [instance, setInstance] = useState(null);
     const ref = useRef();
-    const setConatinerDim = (element) => {
+    const setContainerDim = (element) => {
         const elToAss = element;
         elToAss.style.width = `${graphContainerRef.current.offsetWidth - 2}px`;
         elToAss.style.height = `${graphContainerRef.current.offsetHeight - 2}px`;
@@ -44,8 +44,8 @@ function Graph({
 
     useEffect(() => {
         if (ref.current) {
-            setConatinerDim(ref.current);
-            window.addEventListener('resize', () => setConatinerDim(ref.current));
+            setContainerDim(ref.current);
+            window.addEventListener('resize', () => setContainerDim(ref.current));
             setInstance(initialiseNewGraph());
         }
     }, [ref]);

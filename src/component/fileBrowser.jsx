@@ -4,11 +4,10 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/state-in-constructor */
 import React, { useEffect, useState } from 'react';
-import FileBrowser, { Icons } from 'react-keyed-file-browser';
-import Moment from 'moment';
-import '../../node_modules/react-keyed-file-browser/dist/react-keyed-file-browser.css';
+import FileBrowser from 'react-keyed-file-browser';
 import { readFile, readTextFile } from '../toolbarActions/toolbarFunctions';
 import { actionType as T } from '../reducer';
+import './fileBrowser.css';
 
 const LocalFileBrowser = ({ superState, dispatcher }) => {
     const fileRef = React.useRef();
@@ -17,20 +16,29 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
         dispatcher({ type: T.SET_FILE_REF, payload: fileRef });
     }, []);
 
-    const [fileState, setFileState] = useState({
-        files: [
-            // {
-            //     key: '/home/emory/Desktop/github',
-            //     modified: +Moment().subtract(1, 'hours'),
-            //     size: 1.5 * 1024 * 1024,
-            // },
-            // {
-            //     key: '/concore/demo/sample2.graphml',
-            //     modified: +Moment().subtract(3, 'days'),
-            //     size: 545 * 1024,
-            // },
-        ],
-    });
+    const [fileState, setFileState] = useState([]);
+    // const [fileState, setFileState] = useState(() => {
+    //     let files = [];
+    //     files = [];
+    //     // if (window.localStorage.getItem('fileList')) {
+    //     //     files = JSON.parse(window.localStorage.getItem('fileList'));
+    //     //     console.log(files);
+    //     //     return files;
+    //     // }
+    //     return { files };
+    //     // files: [
+    //     // {
+    //     //     key: '/home/emory/Desktop/github',
+    //     //     modified: +Moment().subtract(1, 'hours'),
+    //     //     size: 1.5 * 1024 * 1024,
+    //     // },
+    //     // {
+    //     //     key: '/concore/demo/sample2.graphml',
+    //     //     modified: +Moment().subtract(3, 'days'),
+    //     //     size: 545 * 1024,
+    //     // },
+    //     // ],
+    // });
 
     // TODO
     useEffect(() => {
@@ -100,9 +108,9 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
                 onChange={(e) => {
                     setFileState((state) => {
                         for (let i = 0; i < e.target.files.length; i += 1) {
-                            state.files = state.files.concat([{
+                            state = state.concat([{
                                 key: e.target.files[i].name,
-                                lastModified: +Moment(),
+                                modified: e.target.files[i].lastModifiedDate,
                                 size: e.target.files[i].size,
                                 fileObj: e.target.files[i],
                             }]);
@@ -115,8 +123,7 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
                 webkitdirectory="true"
             />
             <FileBrowser
-                files={fileState.files}
-                icons={Icons.FontAwesome(4)}
+                files={fileState}
                 onSelectFile={handleSelectFile}
                 detailRenderer={() => null}
                 // TODO

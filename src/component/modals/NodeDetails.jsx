@@ -107,7 +107,7 @@ const NodeDetails = ({
                             {
                                 localStorageManager.getFileList()
                                     // eslint-disable-next-line max-len, jsx-a11y/control-has-associated-label
-                                    ? JSON.parse(localStorageManager.getFileList()).files.map((item) => <option value={`${item.key.toString()}`} />)
+                                    ? JSON.parse(localStorageManager.getFileList()).map((item) => <option value={`${item.key.toString()}`} />)
                                     : ''
                             }
                         </datalist>
