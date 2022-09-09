@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import Editor from 'react-simple-code-editor';
+import { highlight, languages } from 'prismjs/components/prism-core';
 import Modal from './ParentModal';
 import './file-edit.css';
-import CodeEdit from '../CodeEdit';
+import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/themes/prism.css';
 import { actionType as T } from '../../reducer';
 
 const FileEditModal = ({ superState, dispatcher }) => {
@@ -37,14 +41,23 @@ const FileEditModal = ({ superState, dispatcher }) => {
             title={fileName}
         >
             <div className="File Edit Container">
-                <div>
-                    <CodeEdit
-                        pre=""
-                        post=""
+                <div
+                    style={{
+                        minHeight: '400px',
+                    }}
+                >
+                    <Editor
                         value={codeStuff}
-                        onChange={(e) => setCodeStuff(e.target.value)}
-                        height={350}
-                        docString=""
+                        onValueChange={(e) => setCodeStuff(e)}
+                        highlight={(code) => highlight(code, languages.js)}
+                        padding={10}
+                        style={{
+                            fontFamily: '"Arial"',
+                            fontSize: 16,
+                            minHeight: '100vh',
+                            minWidth: '80vw',
+                            border: '1px solid black',
+                        }}
                     />
                 </div>
                 <div className="footer">
