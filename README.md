@@ -2,8 +2,6 @@
 
 This is a fork of DHGWorkflow, visual Directed Hypergraph Workflow Composer, finetuned to operate as a frontend for _concore_.
 
-Active development of the _concore_ Editor happens in the dev branch. Please check it out!
-
 Key Features of the _concore_ Editor:
 * Export-import graph as a graphml file.
 * Export graph as JPEG/PNG
@@ -53,4 +51,13 @@ This project requires building a graph with some special kind of hyperedges.
 
 If we create our instance of the graph with `tailored-graph-builder`, we will get graph builder which will have hyperedges specialized for this project requirement whereas creating the instance from `graph-core` will result in a generic graph builder with simple edges.
 
+# Deploying concore-editor in GitHub
+
+We have two workflows.
+
+* Build - triggers automatically on every push and pull just to ensure the new PRs are consistent.
+
+* Build and Deploy - Has to be triggered manually and updates the online deployed version. Please go to this url and trigger this particular workflow https://github.com/ControlCore-Project/concore-editor/actions/workflows/buildAndDeploy.yml
+
+This ensures that any PR containing breaking change doesn't affect the user directly
   
