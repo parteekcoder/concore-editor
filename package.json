@@ -2,7 +2,7 @@
   "name": "concore-editor",
   "version": "0.1.0",
   "private": true,
-  "homepage": "concore-editor",
+  "homepage": "/concore-editor",
   "dependencies": {
     "@szhsin/react-menu": "^1.10.0",
     "@testing-library/jest-dom": "^5.11.4",
