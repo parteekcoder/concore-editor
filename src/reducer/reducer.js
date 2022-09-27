@@ -159,7 +159,12 @@ const reducer = (state, action) => {
     }
 
     case T.EDIT_TEXTFILE: {
-        return { ...state, textFileModal: action.payload.show, fileObj: action.payload.fileObj };
+        return {
+            ...state,
+            textFileModal: action.payload.show,
+            fileObj: action.payload.fileObj,
+            fileHandle: action.payload.fileHandle,
+        };
     }
 
     default:
