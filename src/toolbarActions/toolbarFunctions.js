@@ -99,11 +99,11 @@ const readFile = (state, setState, file) => {
     }
 };
 
-const readTextFile = (state, setState, file) => {
+const readTextFile = (state, setState, file, fileHandle) => {
     if (file) {
         setState({
             type: T.EDIT_TEXTFILE,
-            payload: { show: true, fileObj: file },
+            payload: { show: true, fileObj: file, fileHandle },
         });
     }
 };

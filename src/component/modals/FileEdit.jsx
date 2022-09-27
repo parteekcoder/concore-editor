@@ -14,12 +14,14 @@ const FileEditModal = ({ superState, dispatcher }) => {
     const close = () => dispatcher({ type: T.EDIT_TEXTFILE, payload: { show: false } });
     // TODO - Save file
     async function submit() {
-        // eslint-disable-next-line prefer-const
-        // let fileHandle = superState.fileObj;
-        // console.log(fileHandle);
-        // const stream = await fileHandle.createWriter();
-        // await stream.write(codeStuff);
-        // await stream.close();
+        if (superState.fileHandle) {
+            const stream = await superState.fileHandle.createWritable();
+            await stream.write(codeStuff);
+            await stream.close();
+        } else {
+            // eslint-disable-next-line no-alert
+            alert('Switch to Edge/Chrome!');
+        }
         dispatcher({ type: T.EDIT_TEXTFILE, payload: { show: false } });
     }
 
@@ -41,6 +43,9 @@ const FileEditModal = ({ superState, dispatcher }) => {
             title={fileName}
         >
             <div className="File Edit Container">
+                <div className="footer">
+                    <button type="submit" className="btn btn-primary" onClick={submit}>Save</button>
+                </div>
                 <div
                     style={{
                         minHeight: '400px',

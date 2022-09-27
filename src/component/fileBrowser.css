@@ -1,4 +1,18 @@
 /* Same file as react-file-browser.css in node modules but with few modifications */
+.inputButton{
+  font-size: large;
+  text-align: center;
+  color: #fff;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+  border: 2px solid white;
+  background-color: #1e88e5;
+  font-weight: bold;
+  display: block;
+}
+
+
 div.rendered-react-keyed-file-browser div.action-bar {
   margin-bottom: 0.5rem;
   flex-wrap: wrap;
@@ -29,8 +43,8 @@ div.rendered-react-keyed-file-browser div.action-bar {
         margin-right: 0.5rem; }
 
 div.rendered-react-keyed-file-browser div.files {
-  overflow-y: scroll;
-  height: 75vh;
+  overflow: auto;
+  width: 30vw;
 }
 
 div.rendered-react-keyed-file-browser div.files table {
@@ -47,7 +61,12 @@ div.rendered-react-keyed-file-browser div.files table {
     margin: 0;
     padding: 0.25rem; }
   div.rendered-react-keyed-file-browser div.files table th {
-    font-weight: bold; }
+    font-weight: bold;
+    width:1px;
+    white-space:nowrap;  }
+  div.rendered-react-keyed-file-browser div.files table td {
+    width:1px;
+    white-space:nowrap;  }
   div.rendered-react-keyed-file-browser div.files table th.size, div.rendered-react-keyed-file-browser div.files table th.modified, div.rendered-react-keyed-file-browser div.files table td.size, div.rendered-react-keyed-file-browser div.files table td.modified {
     text-align: right; }
   div.rendered-react-keyed-file-browser div.files table th.name i, div.rendered-react-keyed-file-browser div.files table td.name i {

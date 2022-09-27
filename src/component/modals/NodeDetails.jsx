@@ -78,9 +78,15 @@ const NodeDetails = ({
                             required
                             label="Node Label"
                             placeholder="Enter Node Label"
+                            value={data.label.split(':')[0]}
                             onChange={(e) => {
-                                setLabelName(e.target.value);
-                                if (labelFile) setData({ ...data, label: e.target.value + labelFile });
+                                if (e.target.value.slice(-1) !== ':') {
+                                    setLabelName(`${e.target.value}:`);
+                                    setData({ ...data, label: `${e.target.value}:${labelFile}` });
+                                } else {
+                                    setLabelName(e.target.value);
+                                    setData({ ...data, label: e.target.value + labelFile });
+                                }
                             }}
                         />
 
@@ -90,16 +96,18 @@ const NodeDetails = ({
                             required
                             label="Node Label file"
                             placeholder="Select file"
+                            // value={data.label.split(':')[1]}
                             onChange={(e) => {
-                                setLabelFile(e.target.value);
+                                setLabelFile(e.target.value.split('/').pop());
                                 if (labelName) {
                                     let lname = labelName;
                                     if (labelName.slice(-1) !== ':') {
                                         setLabelName(`${labelName}:`);
                                         lname += ':';
                                     }
-                                    setData({ ...data, label: lname + e.target.value });
+                                    setData({ ...data, label: lname + e.target.value.split('/').pop() });
                                 }
+                                setData({ ...data, label: labelName + e.target.value.split('/').pop() });
                             }}
                             list="files"
                         />

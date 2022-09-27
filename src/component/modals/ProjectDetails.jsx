@@ -6,9 +6,9 @@ import localStorageManager from '../../graph-builder/local-storage-manager';
 
 const ProjectDetails = ({ superState, dispatcher }) => {
     const curGraph = superState.graphs[superState.curGraphIndex];
-    const [projectName, setProjectName] = useState('');
-    const [authorName, setAuthorName] = useState('');
-    const [serverID, setServerID] = useState('');
+    const [projectName, setProjectName] = useState('Untitled');
+    const [authorName, setAuthorName] = useState('Default');
+    // const [serverID, setServerID] = useState('');
     const inputRef = useCallback((node) => node && node.focus(), []);
     const newGraphModal = superState.newGraphModal || superState.graphs.length === 0;
     const editDetailsModal = superState.editDetailsModal || (curGraph && !curGraph.projectName);
@@ -53,12 +53,12 @@ const ProjectDetails = ({ superState, dispatcher }) => {
         if (superState.newGraphModal) dispatcher({ type: T.SET_NEW_GRAPH_MODAL, payload: false });
         else if (superState.editDetailsModal) dispatcher({ type: T.SET_EDIT_DETAILS_MODAL, payload: false });
     };
-    const loadFromServer = () => {
-        dispatcher({ type: T.ADD_GRAPH, payload: { serverID } });
-    };
-    const NewWrokflow = () => (
+    // const loadFromServer = () => {
+    //     dispatcher({ type: T.ADD_GRAPH, payload: { serverID } });
+    // };
+    const NewWorkflow = () => (
         <>
-            <div className="divider" />
+            {/* <div className="divider" />
             <input
                 placeholder="Enter the Server ID of Workflow"
                 value={serverID}
@@ -72,7 +72,7 @@ const ProjectDetails = ({ superState, dispatcher }) => {
             >
                 Load From Server
 
-            </button>
+            </button> */}
             <div className="divider" />
             <button
                 type="button"
@@ -111,7 +111,7 @@ const ProjectDetails = ({ superState, dispatcher }) => {
                     <button type="submit" className="btn btn-primary">Save</button>
                 </div>
                 <div className="expand">
-                    {newGraphModal && <NewWrokflow />}
+                    {newGraphModal && <NewWorkflow />}
                 </div>
             </form>
         </Modal>

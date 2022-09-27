@@ -4,15 +4,19 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/state-in-constructor */
 import React, { useEffect, useState } from 'react';
-import FileBrowser from 'react-keyed-file-browser';
+import FileBrowser, { FileRenderers, FolderRenderers } from 'react-keyed-file-browser';
 import { readFile, readTextFile } from '../toolbarActions/toolbarFunctions';
 import { actionType as T } from '../reducer';
 import './fileBrowser.css';
 
 const LocalFileBrowser = ({ superState, dispatcher }) => {
     const fileRef = React.useRef();
+    const [dirButton, setDirButton] = useState(false);
 
     useEffect(() => {
+        if (navigator.userAgent.indexOf('Edg') !== -1 || navigator.userAgent.indexOf('Chrome') !== -1) {
+            setDirButton(true);
+        }
         dispatcher({ type: T.SET_FILE_REF, payload: fileRef });
     }, []);
 
@@ -26,18 +30,6 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
     //     //     return files;
     //     // }
     //     return { files };
-    //     // files: [
-    //     // {
-    //     //     key: '/home/emory/Desktop/github',
-    //     //     modified: +Moment().subtract(1, 'hours'),
-    //     //     size: 1.5 * 1024 * 1024,
-    //     // },
-    //     // {
-    //     //     key: '/concore/demo/sample2.graphml',
-    //     //     modified: +Moment().subtract(3, 'days'),
-    //     //     size: 545 * 1024,
-    //     // },
-    //     // ],
     // });
 
     // TODO
@@ -49,86 +41,114 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
         window.localStorage.setItem('fileList', JSON.stringify(fileState));
     }, [fileState]);
 
-    // const handleCreateFolder = (key) => {
-    //     setFileState((state) => {
-    //         state.files = state.files.concat([{
-    //             key: key,
-    //         }]);
-    //         console.log(fileState);
-    //         return state;
-    //     });
-    // };
-
-    // TODO
-    // const handleCreateFiles = (files, prefix) => {
-    //     setFileState((state) => {
-    //         const newFiles = files.map((file) => {
-    //             let newKey = prefix;
-    //             if (prefix !== '' && prefix.substring(prefix.length - 1, prefix.length) !== '/') {
-    //                 newKey += '/';
-    //             }
-    //             newKey += file.name;
-    //             return {
-    //                 key: newKey,
-    //                 size: file.size,
-    //                 modified: +Moment(),
-    //             };
-    //         });
-
-    //         const uniqueNewFiles = [];
-    //         newFiles.map((newFile) => {
-    //             let exists = false;
-    //             state.files.map((existingFile) => {
-    //                 if (existingFile.key === newFile.key) {
-    //                     exists = true;
-    //                 }
-    //             });
-    //             if (!exists) {
-    //                 uniqueNewFiles.push(newFile);
-    //             }
-    //         });
-    //         state.files = state.files.concat(uniqueNewFiles);
-    //         return state;
-    //     });
-    // };
-
     const handleSelectFile = (data) => {
-        if (data.fileObj.name.split('.').pop() === 'graphml') readFile(superState, dispatcher, data.fileObj);
+        // eslint-disable-next-line max-len
+        if (data.fileObj.name.split('.').pop() === 'graphml') readFile(superState, dispatcher, data.fileObj, data.fileHandle);
         else {
-            readTextFile(superState, dispatcher, data.fileObj);
+            readTextFile(superState, dispatcher, data.fileObj, data.fileHandle);
         }
+    };
+
+    const handleFileInDirs = async (topKey, value) => {
+        let state = [];
+        // eslint-disable-next-line no-restricted-syntax
+        for await (const [key, valueSubDir] of value.entries()) {
+            if (valueSubDir.kind === 'file') {
+                const fileData = await valueSubDir.getFile();
+                state = state.concat([{
+                    key: `${topKey}/${value.name}/${key}`,
+                    modified: fileData.lastModified,
+                    size: fileData.size,
+                    fileObj: fileData,
+                    fileHandle: value,
+                }]);
+            } else if (valueSubDir.kind === 'directory') {
+                const res = await handleFileInDirs();
+                state = state.concat(res);
+            }
+        }
+        return state;
+    };
+
+    const newFeature = async () => {
+        const dirHandle = await window.showDirectoryPicker();
+        let state = [];
+        // eslint-disable-next-line no-restricted-syntax
+        for await (const [key, value] of dirHandle.entries()) {
+            if (value.kind === 'file') {
+                const fileData = await value.getFile();
+                state = state.concat([{
+                    key: `${dirHandle.name}/${key}`,
+                    modified: fileData.lastModified,
+                    size: fileData.size,
+                    fileObj: fileData,
+                    fileHandle: value,
+                }]);
+            } else if (value.kind === 'directory') {
+                const res = await handleFileInDirs(dirHandle.name, value);
+                state = state.concat(res);
+            }
+        }
+        setFileState([]);
+        setFileState(state);
     };
 
     return (
         <div>
-            <input
-                type="file"
-                ref={fileRef}
-                onClick={(e) => { e.target.value = null; }}
-                onChange={(e) => {
-                    setFileState((state) => {
-                        for (let i = 0; i < e.target.files.length; i += 1) {
-                            state = state.concat([{
-                                key: e.target.files[i].name,
-                                modified: e.target.files[i].lastModifiedDate,
-                                size: e.target.files[i].size,
-                                fileObj: e.target.files[i],
-                            }]);
-                        }
-                        return state;
-                    });
-                    window.localStorage.setItem('fileList', JSON.stringify(fileState));
-                }}
-                directory
-                webkitdirectory="true"
-            />
+            {!dirButton && (
+                <label
+                    className="inputButton"
+                    htmlFor="fileButton"
+                >
+                    Upload Directory
+                    <input
+                        type="file"
+                        accept=".py, .m, .c, .cpp, .v, .sh"
+                        ref={fileRef}
+                        id="fileButton"
+                        style={{ display: 'none' }}
+                        onClick={(e) => { e.target.value = null; }}
+                        onChange={(e) => {
+                            setFileState([]);
+                            setFileState((state) => {
+                                for (let i = 0; i < e.target.files.length; i += 1) {
+                                    state = state.concat([{
+                                        key: e.target.files[i].webkitRelativePath,
+                                        modified: e.target.files[i].lastModified,
+                                        size: e.target.files[i].size,
+                                        fileObj: e.target.files[i],
+                                    }]);
+                                }
+                                return state;
+                            });
+                            window.localStorage.setItem('fileList', JSON.stringify(fileState));
+                        }}
+                        directory
+                        webkitdirectory="true"
+                    />
+                </label>
+            ) }
+            {dirButton && (
+                <button
+                    type="button"
+                    className="inputButton"
+                    disabled={!dirButton}
+                    onClick={newFeature}
+                >
+                    Upload Directory
+                </button>
+            )}
+            <h4>
+                Folder Name :
+                {' '}
+                {fileState[0] ? fileState[0].key.split('/')[0] : '' }
+            </h4>
             <FileBrowser
                 files={fileState}
                 onSelectFile={handleSelectFile}
                 detailRenderer={() => null}
-                // TODO
-                // onCreateFolder={handleCreateFolder}
-                // onCreateFiles={handleCreateFiles}
+                fileRenderer={FileRenderers.TableFile}
+                folderRenderer={FolderRenderers.TableFolder}
             />
         </div>
     );
