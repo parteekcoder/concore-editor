@@ -29,7 +29,7 @@ const app = () => {
             <FileDragDrop dispatcher={dispatcher} />
             <Header superState={superState} dispatcher={dispatcher} />
             <section className="body" style={{ display: 'flex', overflow: 'hidden' }}>
-                <div style={{ flex: 15 }}>
+                <div style={{ display: 'flex' }}>
                     <LocalFileBrowser dispatcher={dispatcher} />
                 </div>
                 <div className="graph" style={{ display: 'flex', overflow: 'hidden' }}>
