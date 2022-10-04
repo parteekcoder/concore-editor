@@ -48,7 +48,7 @@ const toolbarList = (state, dispatcher) => [
         text: 'Save As',
         icon: FaSave,
         action: (s, d) => [
-            { fn: () => saveAction(s, d), name: 'Save As' },
+            { fn: () => saveAction(s, d, prompt('File Name:')), name: 'Save As' },
         ],
         active: true,
     },

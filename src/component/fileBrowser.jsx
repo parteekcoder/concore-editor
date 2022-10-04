@@ -134,6 +134,7 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
                     className="inputButton"
                     disabled={!dirButton}
                     onClick={newFeature}
+                    ref={fileRef}
                 >
                     Upload Directory
                 </button>
