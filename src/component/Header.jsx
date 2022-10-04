@@ -30,7 +30,7 @@ const setHotKeys = (actions) => {
 };
 
 const Header = ({ superState, dispatcher }) => {
-    const actions = toolbarList(superState);
+    const actions = toolbarList(superState, dispatcher);
     React.useEffect(() => {
         setHotKeys(actions, superState, dispatcher);
     }, []);

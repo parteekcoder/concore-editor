@@ -1,20 +1,22 @@
 /* eslint-disable no-alert */
 import {
     FaSave, FaUndo, FaRedo, FaTrash, FaFileImport, FaPlus, FaDownload, FaEdit, FaRegTimesCircle, FaShare, FaHistory,
-    // FaRegSun,
+    FaHammer, FaBug, FaBomb, FaToggleOn, FaThermometerEmpty,
 } from 'react-icons/fa';
 
-// import {
-//     FiChevronDown, FiChevronsDown, FiChevronsUp, FiChevronUp,
-// } from 'react-icons/fi';
+import {
+    // FiChevronDown, FiChevronsDown, FiChevronsUp, FiChevronUp,
+    FiPlay, FiStopCircle, FiToggleLeft, FiTriangle,
+} from 'react-icons/fi';
 
 import {
     createNode, editElement, deleteElem, downloadImg, saveAction,
     readFile, clearAll, undo, redo, openShareModal, viewHistory,
+    toggleServer,
     // openSettingModal,
 } from './toolbarFunctions';
 
-const toolbarList = (state) => [
+const toolbarList = (state, dispatcher) => [
     {
         type: 'action',
         text: 'Node',
@@ -37,18 +39,23 @@ const toolbarList = (state) => [
         text: 'Save',
         icon: FaSave,
         action: (s, d) => [
-            { fn: () => state.curGraphInstance && state.curGraphInstance.pushToServer(), name: 'Save on Server' },
-            { fn: () => saveAction(s, d), name: 'Save' },
-            { fn: () => saveAction(s, d, prompt('File Name:')), name: 'Save As' },
-            // TODO
-            // { fn: () => saveLocal(s, d), name: 'Save Local' },
+            { fn: () => saveAction(s, d), name: 'Save As' },
+        ],
+        active: false,
+    },
+    {
+        type: 'menu',
+        text: 'Save As',
+        icon: FaSave,
+        action: (s, d) => [
+            { fn: () => saveAction(s, d), name: 'Save As' },
         ],
         active: true,
     },
     {
         type: 'action',
-        text: 'Clear',
-        icon: FaRegTimesCircle,
+        text: 'Empty',
+        icon: FaThermometerEmpty,
         action: clearAll,
         active: true,
         hotkey: 'Ctrl+Backspace',
@@ -96,6 +103,57 @@ const toolbarList = (state) => [
         active: true,
     },
     { type: 'vsep' },
+    // server buttons
+    {
+        type: 'action',
+        text: 'Server',
+        icon: state.isWorkflowOnServer ? FaToggleOn : FiToggleLeft,
+        action: () => toggleServer(state, dispatcher),
+        active: true,
+    },
+    {
+        type: 'action',
+        text: 'Build',
+        icon: FaHammer,
+        action: () => state.curGraphInstance && state.curGraphInstance.build(),
+        active: state.isWorkflowOnServer,
+    },
+    {
+        type: 'action',
+        text: 'Debug',
+        icon: FaBug,
+        action: () => state.curGraphInstance && state.curGraphInstance.debug(),
+        active: state.isWorkflowOnServer,
+    },
+    {
+        type: 'action',
+        text: 'Run',
+        icon: FiPlay,
+        action: () => state.curGraphInstance && state.curGraphInstance.run(),
+        active: state.isWorkflowOnServer,
+    },
+    {
+        type: 'action',
+        text: 'Clear',
+        icon: FaRegTimesCircle,
+        action: () => state.curGraphInstance && state.curGraphInstance.clear(),
+        active: state.isWorkflowOnServer,
+    },
+    {
+        type: 'action',
+        text: 'Stop',
+        icon: FiStopCircle,
+        action: () => state.curGraphInstance && state.curGraphInstance.stop(),
+        active: state.isWorkflowOnServer,
+    },
+    {
+        type: 'action',
+        text: 'Destroy',
+        icon: FaBomb,
+        action: () => state.curGraphInstance && state.curGraphInstance.destroy(),
+        active: state.isWorkflowOnServer,
+    },
+
     // Not being implemented in version 1
     // {
     //     type: 'action',
@@ -135,6 +193,13 @@ const toolbarList = (state) => [
     //     action: openSettingModal,
     //     active: true,
     // },
+    {
+        type: 'action',
+        text: 'Contribute',
+        icon: FiTriangle,
+        action: () => { window.open('https://github.com/ControlCore-Project/concore-editor', '_blank'); },
+        active: true,
+    },
     {
         type: 'action',
         text: 'Share',

@@ -26,6 +26,10 @@ const NodeDetails = ({
         }
     }, [!widthSet && data.label]);
 
+    useEffect(() => {
+        setLabelName(data.label.split(':')[0]);
+    }, [data.label]);
+
     return (
         <div className="nodeform" onSubmit={submit}>
             <div className="parent-div" style={{ height: data.style.height }}>
@@ -96,7 +100,6 @@ const NodeDetails = ({
                             required
                             label="Node Label file"
                             placeholder="Select file"
-                            // value={data.label.split(':')[1]}
                             onChange={(e) => {
                                 setLabelFile(e.target.value.split('/').pop());
                                 if (labelName) {
@@ -106,16 +109,24 @@ const NodeDetails = ({
                                         lname += ':';
                                     }
                                     setData({ ...data, label: lname + e.target.value.split('/').pop() });
-                                }
-                                setData({ ...data, label: labelName + e.target.value.split('/').pop() });
+                                } else setData({ ...data, label: `:${e.target.value.split('/').pop()}` });
                             }}
                             list="files"
                         />
                         <datalist id="files">
                             {
                                 localStorageManager.getFileList()
-                                    // eslint-disable-next-line max-len, jsx-a11y/control-has-associated-label
-                                    ? JSON.parse(localStorageManager.getFileList()).map((item) => <option value={`${item.key.toString()}`} />)
+                                    // eslint-disable-next-line max-len, prefer-arrow-callback
+                                    ? JSON.parse(localStorageManager.getFileList()).map(function fn(item, index) {
+                                        const acceptedTypes = ['.v', '.c', '.cpp', '.py', '.m', '.sh'];
+                                        const list = [];
+                                        // eslint-disable-next-line max-len
+                                        if ((acceptedTypes.some((substring) => item.key.toString().includes(substring)))) {
+                                            list.push(item.key.toString());
+                                        }
+                                        // eslint-disable-next-line jsx-a11y/control-has-associated-label, react/no-array-index-key
+                                        return <option value={list} key={index} />;
+                                    })
                                     : ''
                             }
                         </datalist>
