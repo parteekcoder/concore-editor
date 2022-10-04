@@ -43,7 +43,7 @@ div.rendered-react-keyed-file-browser div.action-bar {
         margin-right: 0.5rem; }
 
 div.rendered-react-keyed-file-browser div.files {
-  overflow: auto;
+  /* overflow: auto; */
   width: 30vw;
 }
 

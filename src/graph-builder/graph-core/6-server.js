@@ -64,6 +64,36 @@ class GraphServer extends GraphLoadSave {
     //     }
     // }
 
+    build() {
+        // TODO
+        if (this.serverID);
+    }
+
+    debug() {
+        // TODO
+        if (this.serverID);
+    }
+
+    run() {
+        // TODO
+        if (this.serverID);
+    }
+
+    clear() {
+        // TODO
+        if (this.serverID);
+    }
+
+    stop() {
+        // TODO
+        if (this.serverID);
+    }
+
+    destroy() {
+        // TODO
+        if (this.serverID);
+    }
+
     setCurStatus() {
         super.setCurStatus();
         this.dispatcher({ type: T.IS_WORKFLOW_ON_SERVER, payload: Boolean(this.serverID) });
