@@ -24,7 +24,7 @@ const ProjectDetails = ({ superState, dispatcher }) => {
     useEffect(() => {
         if (superState.editDetailsModal && curGraph) {
             setProjectName(curGraph.projectName);
-        }
+        } else setProjectName('');
     }, [superState.authorName, superState.editDetailsModal, curGraph]);
 
     useEffect(() => {
