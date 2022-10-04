@@ -142,8 +142,17 @@ const viewHistory = (state, setState) => {
     setState({ type: T.SET_HISTORY_MODAL, payload: true });
 };
 
+const toggleServer = (state, dispatcher) => {
+    if (state.isWorkflowOnServer) {
+        dispatcher({ type: T.IS_WORKFLOW_ON_SERVER, payload: false });
+    } else {
+        dispatcher({ type: T.IS_WORKFLOW_ON_SERVER, payload: true });
+    }
+};
+
 export {
     createNode, editElement, deleteElem, downloadImg, saveAction,
     readFile, readTextFile, newProject, clearAll, editDetails, undo, redo,
     openShareModal, openSettingModal, viewHistory,
+    toggleServer,
 };
