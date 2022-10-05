@@ -28,13 +28,14 @@ function Graph({
         myGraph.setCurStatus();
         return myGraph;
     };
-    useEffect(() => {
-        if (active && loaded && serverID) {
-            window.history.pushState(null, null, path.join(process.env.PUBLIC_URL, 's', serverID));
-        } else if (active && loaded && graphID) {
-            window.history.pushState(null, null, path.join(process.env.PUBLIC_URL, 'l', graphID));
-        }
-    }, [active, serverID, loaded, graphID]);
+    // Remote server implementation - Not being used.
+    // useEffect(() => {
+    //     if (active && loaded && serverID) {
+    //         window.history.pushState(null, null, path.join(process.env.PUBLIC_URL, 's', serverID));
+    //     } else if (active && loaded && graphID) {
+    //         window.history.pushState(null, null, path.join(process.env.PUBLIC_URL, 'l', graphID));
+    //     }
+    // }, [active, serverID, loaded, graphID]);
     useEffect(() => instance && instance.set({ superState }), [instance, superState]);
     useEffect(() => active && instance && instance.setCurStatus(), [active && instance]);
     useEffect(() => {
