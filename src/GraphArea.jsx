@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import path from 'path';
 import { edgeValidator, nodeValidator } from './config/defaultValidators';
 import MyGraph from './graph-builder';
 import { actionType as T } from './reducer';
 
 function Graph({
-    el, superState, dispatcher, graphID, serverID, graphML, projectName, graphContainerRef, active, loaded,
+    el, superState, dispatcher, graphID, serverID, graphML, projectName, graphContainerRef, active,
 }) {
     const [instance, setInstance] = useState(null);
     const ref = useRef();
