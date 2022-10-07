@@ -35,21 +35,17 @@ const toolbarList = (state, dispatcher) => [
         hotkey: 'Ctrl+O',
     },
     {
-        type: 'menu',
+        type: 'action',
         text: 'Save',
         icon: FaSave,
-        action: (s, d) => [
-            { fn: () => saveAction(s, d), name: 'Save As' },
-        ],
+        action: (s, d) => saveAction(s, d),
         active: false,
     },
     {
-        type: 'menu',
+        type: 'action',
         text: 'Save As',
         icon: FaSave,
-        action: (s, d) => [
-            { fn: () => saveAction(s, d, prompt('File Name:')), name: 'Save As' },
-        ],
+        action: (s, d) => saveAction(s, d, prompt('File Name:')),
         active: true,
     },
     {
