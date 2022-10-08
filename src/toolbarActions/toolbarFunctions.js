@@ -75,15 +75,28 @@ const downloadImg = (state, setState, format) => {
     getGraphFun(state).downloadImg(format);
 };
 
-// TODO
-// const saveLocal = (state, d) => {
-// };
-
 const saveAction = (state, d, fileName) => {
     getGraphFun(state).saveToDisk(fileName);
 };
 
-const readFile = (state, setState, file) => {
+async function saveGraphMLFile(state) {
+    if (state.curGraphInstance) {
+        const graph = state.graphs[state.curGraphIndex];
+        if (graph.fileHandle) {
+            const stream = await graph.fileHandle.createWritable();
+            await stream.write(getGraphFun(state).saveToFolder());
+            await stream.close();
+        } else {
+            // eslint-disable-next-line no-alert
+            alert('Switch to Edge/Chrome!');
+        }
+    } else {
+        // eslint-disable-next-line no-alert
+        alert('Switch to Edge/Chrome!');
+    }
+}
+
+const readFile = (state, setState, file, fileHandle) => {
     if (file) {
         const fr = new FileReader();
         const projectName = file.name;
@@ -91,7 +104,9 @@ const readFile = (state, setState, file) => {
             fr.onload = (x) => {
                 setState({
                     type: T.ADD_GRAPH,
-                    payload: { projectName, graphML: x.target.result },
+                    payload: {
+                        projectName, graphML: x.target.result, fileHandle, fileName: file.name,
+                    },
                 });
             };
             fr.readAsText(file);
@@ -151,7 +166,7 @@ const toggleServer = (state, dispatcher) => {
 };
 
 export {
-    createNode, editElement, deleteElem, downloadImg, saveAction,
+    createNode, editElement, deleteElem, downloadImg, saveAction, saveGraphMLFile,
     readFile, readTextFile, newProject, clearAll, editDetails, undo, redo,
     openShareModal, openSettingModal, viewHistory,
     toggleServer,

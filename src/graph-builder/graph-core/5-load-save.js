@@ -56,6 +56,8 @@ class GraphLoadSave extends GraphUndoRedo {
             projectName: this.projectName,
             id: this.id,
             serverID: this.serverID,
+            fileName: null,
+            fileHandle: null,
         };
         this.cy.nodes().forEach((node) => {
             if (this.shouldNodeBeSaved(node.id())) {
@@ -102,7 +104,14 @@ class GraphLoadSave extends GraphUndoRedo {
         const str = graphmlBuilder(this.jsonifyGraph());
         const bytes = new TextEncoder().encode(str);
         const blob = new Blob([bytes], { type: 'application/json;charset=utf-8' });
-        saveAs(blob, `${fileName || `${this.getName()}-DHGWorkflow`}.graphml`);
+        saveAs(blob, `${fileName || `${this.getName()}-concore`}.graphml`);
+    }
+
+    saveToFolder() {
+        const str = graphmlBuilder(this.jsonifyGraph());
+        const bytes = new TextEncoder().encode(str);
+        const blob = new Blob([bytes], { type: 'application/json;charset=utf-8' });
+        return blob;
     }
 
     getGraphML() {
@@ -111,7 +120,7 @@ class GraphLoadSave extends GraphUndoRedo {
 
     loadJson(content) {
         content.nodes.forEach((node) => {
-            this.addNode(node.label, node.style, 'ordin', node.position, { }, node.id, 0);
+            this.addNode(node.label, node.style, 'ordin', node.position, {}, node.id, 0);
         });
         content.edges.forEach((edge) => {
             this.addEdge({ ...edge, sourceID: edge.source, targetID: edge.target }, 0);

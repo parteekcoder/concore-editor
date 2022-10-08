@@ -72,6 +72,8 @@ const GraphComp = (props) => {
                         serverID={el.serverID}
                         graphML={el.graphML}
                         projectName={el.projectName}
+                        fileHandle={el.fileHandle}
+                        fileName={el.fileName}
                     />
                 ))}
                 <ZoomComp dispatcher={dispatcher} superState={superState} />

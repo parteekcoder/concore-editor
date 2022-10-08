@@ -21,19 +21,9 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
     }, []);
 
     const [fileState, setFileState] = useState([]);
-    // const [fileState, setFileState] = useState(() => {
-    //     let files = [];
-    //     files = [];
-    //     // if (window.localStorage.getItem('fileList')) {
-    //     //     files = JSON.parse(window.localStorage.getItem('fileList'));
-    //     //     console.log(files);
-    //     //     return files;
-    //     // }
-    //     return { files };
-    // });
 
-    // TODO
     useEffect(() => {
+        // TODO - Loading file list from localStorage. Not supported by browsers.
         // if(window.localStorage.getItem('fileList')) {
         //     const allFiles = window.localStorage.getItem('fileList');
         //     setFileState({ files: allFiles });

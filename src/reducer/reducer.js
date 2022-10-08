@@ -95,6 +95,8 @@ const reducer = (state, action) => {
                     graphID,
                     serverID: action.payload.serverID,
                     graphML: action.payload.graphML,
+                    fileHandle: action.payload.fileHandle || null,
+                    fileName: action.payload.fileName,
                 },
             ],
         };

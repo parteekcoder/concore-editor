@@ -60,7 +60,7 @@ const TabBar = ({ superState, dispatcher }) => {
                     id={`tab_${i}`}
                 >
                     <span className="tab-text">
-                        {el.projectName}
+                        {el.fileName || el.projectName}
                     </span>
 
                     {superState.curGraphIndex === i ? (

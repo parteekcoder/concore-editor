@@ -10,7 +10,7 @@ import {
 } from 'react-icons/fi';
 
 import {
-    createNode, editElement, deleteElem, downloadImg, saveAction,
+    createNode, editElement, deleteElem, downloadImg, saveAction, saveGraphMLFile,
     readFile, clearAll, undo, redo, openShareModal, viewHistory,
     toggleServer,
     // openSettingModal,
@@ -38,8 +38,8 @@ const toolbarList = (state, dispatcher) => [
         type: 'action',
         text: 'Save',
         icon: FaSave,
-        action: (s, d) => saveAction(s, d),
-        active: false,
+        action: saveGraphMLFile,
+        active: state.curGraphInstance,
     },
     {
         type: 'action',
