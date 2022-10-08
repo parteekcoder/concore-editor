@@ -13,8 +13,8 @@ class GraphLoadSave extends GraphUndoRedo {
         this.autoSaveIntervalId = null;
     }
 
-    regesterEvents() {
-        super.regesterEvents();
+    registerEvents() {
+        super.registerEvents();
         this.cy.on('add remove data dragfreeon', 'node[type="ordin"]', () => this.saveLocalStorage());
         this.cy.on('add remove data', 'edge[type="ordin"]', () => this.saveLocalStorage());
         this.cy.on('nodeediting.resizeend graph-modified', () => this.saveLocalStorage());

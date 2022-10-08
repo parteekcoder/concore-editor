@@ -145,8 +145,8 @@ class GraphUndoRedo extends GraphComponent {
         this.informUI();
     }
 
-    regesterEvents() {
-        super.regesterEvents();
+    registerEvents() {
+        super.registerEvents();
         this.cy.on('dragfree', 'node[type = "ordin"]', (e) => {
             e.target.forEach((node) => {
                 this.addPositionChange(node.id(), node.scratch('position'), { ...node.position() });

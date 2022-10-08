@@ -41,7 +41,7 @@ class CoreGraph {
         this.bendNode = this.cy.add(
             { group: 'nodes', data: { type: 'bend' }, classes: ['hidden'] },
         );
-        this.regesterEvents();
+        this.registerEvents();
         this.cy.emit('graph-modified');
         this.initizialize();
     }
@@ -106,6 +106,21 @@ class CoreGraph {
         this.cy.emit('graph-modified');
     }
 
+    setGraphFileHandle(fileHandle, shouldEmit = true) {
+        this.fileHandle = fileHandle;
+        if (shouldEmit) {
+            this.dispatcher({
+                type: T.SET_PROJECT_DETAILS,
+                payload: {
+                    value: fileHandle,
+                    graphID: this.id,
+                    type: 'filehandle',
+                },
+            });
+        }
+        this.cy.emit('graph-modified');
+    }
+
     setServerID(serverID, shouldEmit = true) {
         this.serverID = serverID;
         if (shouldEmit) {
@@ -137,7 +152,7 @@ class CoreGraph {
         });
     }
 
-    regesterEvents() {
+    registerEvents() {
         this.cy.on('select unselect', () => this.selectDeselectEventHandler());
         this.cy.on('grab', 'node[type = "ordin"]', (e) => {
             e.target.forEach((node) => {
