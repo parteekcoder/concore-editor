@@ -41,7 +41,7 @@ class CoreGraph {
         this.bendNode = this.cy.add(
             { group: 'nodes', data: { type: 'bend' }, classes: ['hidden'] },
         );
-        this.regesterEvents();
+        this.registerEvents();
         this.cy.emit('graph-modified');
         this.initizialize();
     }
@@ -137,7 +137,7 @@ class CoreGraph {
         });
     }
 
-    regesterEvents() {
+    registerEvents() {
         this.cy.on('select unselect', () => this.selectDeselectEventHandler());
         this.cy.on('grab', 'node[type = "ordin"]', (e) => {
             e.target.forEach((node) => {
