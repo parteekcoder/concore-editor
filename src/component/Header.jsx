@@ -8,7 +8,7 @@ import {
     ActionButton, Vsep, Hsep, Space, TextBox, Switcher, DropDown, FileUploader,
 } from './HeaderComps';
 import 'rc-switch/assets/index.css';
-import ServerActions from './serverActions/ServerActions';
+// import ServerActions from './serverActions/ServerActions';
 
 const setHotKeys = (actions) => {
     let keys = '';
@@ -65,7 +65,7 @@ const Header = ({ superState, dispatcher }) => {
                         case 'menu': return <DropDown {...props} />;
                         case 'file-upload': return <FileUploader {...props} superState={superState} />;
                         case 'action': return <ActionButton {...props} />;
-                        case 'serverActions': return <ServerActions superState={superState} />;
+                        // case 'serverActions': return <ServerActions superState={superState} />;
                         default: return <></>;
                         }
                     })

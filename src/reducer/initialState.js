@@ -36,6 +36,8 @@ const initialGraphState = {
     component: null,
     instance: null,
     id: null,
+    fileHandle: null,
+    fileName: null,
 };
 
 export { initialState, initialGraphState };

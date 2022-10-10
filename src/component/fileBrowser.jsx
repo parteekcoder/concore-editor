@@ -21,19 +21,9 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
     }, []);
 
     const [fileState, setFileState] = useState([]);
-    // const [fileState, setFileState] = useState(() => {
-    //     let files = [];
-    //     files = [];
-    //     // if (window.localStorage.getItem('fileList')) {
-    //     //     files = JSON.parse(window.localStorage.getItem('fileList'));
-    //     //     console.log(files);
-    //     //     return files;
-    //     // }
-    //     return { files };
-    // });
 
-    // TODO
     useEffect(() => {
+        // TODO - Loading file list from localStorage. Not supported by browsers.
         // if(window.localStorage.getItem('fileList')) {
         //     const allFiles = window.localStorage.getItem('fileList');
         //     setFileState({ files: allFiles });
@@ -50,20 +40,22 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
     };
 
     const handleFileInDirs = async (topKey, value) => {
+        let topLevel = topKey;
         let state = [];
         // eslint-disable-next-line no-restricted-syntax
         for await (const [key, valueSubDir] of value.entries()) {
             if (valueSubDir.kind === 'file') {
                 const fileData = await valueSubDir.getFile();
                 state = state.concat([{
-                    key: `${topKey}/${value.name}/${key}`,
+                    key: `${topLevel}/${value.name}/${key}`,
                     modified: fileData.lastModified,
                     size: fileData.size,
                     fileObj: fileData,
                     fileHandle: value,
                 }]);
             } else if (valueSubDir.kind === 'directory') {
-                const res = await handleFileInDirs();
+                topLevel = `${topKey}/${value.name}`;
+                const res = await handleFileInDirs(topLevel, valueSubDir);
                 state = state.concat(res);
             }
         }
