@@ -62,8 +62,8 @@ const ActionButton = ({
         onKeyDown={(ev) => active && ev.key === ' ' && action()}
         data-tip={hotkey ? hotkey.split(',')[0] : ''}
     >
-        <div className="icon"><Icon size="25" /></div>
-        <div style={{ fontSize: 16 }}>{text}</div>
+        <div className="icon"><Icon size="20" /></div>
+        <div style={{ fontSize: 14 }}>{text}</div>
     </div>
 );
 

@@ -9,9 +9,11 @@ function Graph({
     const [instance, setInstance] = useState(null);
     const ref = useRef();
     const setContainerDim = (element) => {
-        const elToAss = element;
-        elToAss.style.width = `${graphContainerRef.current.offsetWidth - 2}px`;
-        elToAss.style.height = `${graphContainerRef.current.offsetHeight - 2}px`;
+        if (element) {
+            const elToAss = element;
+            elToAss.style.width = `${graphContainerRef.current.offsetWidth - 2}px`;
+            elToAss.style.height = `${graphContainerRef.current.offsetHeight - 2}px`;
+        }
     };
 
     const initialiseNewGraph = () => {

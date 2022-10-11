@@ -47,7 +47,7 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
             if (valueSubDir.kind === 'file') {
                 const fileData = await valueSubDir.getFile();
                 state = state.concat([{
-                    key: `${topLevel}/${value.name}/${key}`,
+                    key: `${topKey}/${value.name}/${key}`,
                     modified: fileData.lastModified,
                     size: fileData.size,
                     fileObj: fileData,
