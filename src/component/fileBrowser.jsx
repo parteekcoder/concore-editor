@@ -85,6 +85,25 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
         setFileState(state);
     };
 
+    const newFeatureFile = async () => {
+        const pickerOpts = {
+            types: [
+                {
+                    description: 'Graphml',
+                    accept: {
+                        'text/graphml': ['.graphml'],
+                    },
+                },
+            ],
+            excludeAcceptAllOption: true,
+            multiple: false,
+        };
+
+        const [fileHandle] = await window.showOpenFilePicker(pickerOpts);
+        const fileObj = await fileHandle.getFile();
+        readFile(superState, dispatcher, fileObj, fileHandle);
+    };
+
     return (
         <div>
             {!dirButton && (
@@ -96,7 +115,6 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
                     <input
                         type="file"
                         accept=".py, .m, .c, .cpp, .v, .sh"
-                        ref={fileRef}
                         id="fileButton"
                         style={{ display: 'none' }}
                         onClick={(e) => { e.target.value = null; }}
@@ -126,11 +144,41 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
                     className="inputButton"
                     disabled={!dirButton}
                     onClick={newFeature}
-                    ref={fileRef}
                 >
                     Upload Directory
                 </button>
             )}
+            {!dirButton
+                && (
+                    <input
+                        type="file"
+                        ref={fileRef}
+                        onClick={(e) => { e.target.value = null; }}
+                        style={{ display: 'none' }}
+                        accept=".graphml"
+                        onChange={(e) => readFile(superState, dispatcher, e.target.files[0])}
+                    />
+                )}
+            {dirButton
+                && (
+                    <button
+                        type="button"
+                        ref={fileRef}
+                        className="inputButton"
+                        disabled={!dirButton}
+                        style={{ display: 'none' }}
+                        onClick={newFeatureFile}
+                        label="File Upload"
+                    />
+                    // <input
+                    //     type="file"
+                    //     ref={fileRef}
+                    //     onClick={(e) => { e.target.value = null; }}
+                    //     style={{ display: 'none' }}
+                    //     accept=".graphml"
+                    //     onChange={(e) => readFile(superState, dispatcher, e.target.files[0])}
+                    // />
+                )}
             <h4>
                 Folder Name :
                 {' '}
