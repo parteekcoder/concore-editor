@@ -11,7 +11,7 @@ import {
 
 import {
     createNode, editElement, deleteElem, downloadImg, saveAction, saveGraphMLFile,
-    readFile, clearAll, undo, redo, openShareModal, viewHistory,
+    createFile, readFile, clearAll, undo, redo, openShareModal, viewHistory,
     toggleServer,
     // openSettingModal,
 } from './toolbarFunctions';
@@ -27,6 +27,14 @@ const toolbarList = (state, dispatcher) => [
         hotkey: 'Ctrl+G',
     },
     { type: 'vsep' },
+    {
+        type: 'action',
+        text: 'Create',
+        icon: FaFileImport,
+        action: createFile,
+        active: true,
+        visibility: true,
+    },
     {
         type: 'file-upload',
         text: 'Open',

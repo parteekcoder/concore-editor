@@ -123,6 +123,13 @@ const readTextFile = (state, setState, file, fileHandle) => {
     }
 };
 
+const createFile = (state, setState) => {
+    setState({
+        type: T.EDIT_TEXTFILE,
+        payload: { show: true },
+    });
+};
+
 const newProject = (state, setState) => {
     setState({ type: T.NEW_GRAPH });
 };
@@ -167,7 +174,7 @@ const toggleServer = (state, dispatcher) => {
 
 export {
     createNode, editElement, deleteElem, downloadImg, saveAction, saveGraphMLFile,
-    readFile, readTextFile, newProject, clearAll, editDetails, undo, redo,
+    createFile, readFile, readTextFile, newProject, clearAll, editDetails, undo, redo,
     openShareModal, openSettingModal, viewHistory,
     toggleServer,
 };
