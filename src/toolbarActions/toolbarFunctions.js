@@ -75,8 +75,8 @@ const downloadImg = (state, setState, format) => {
     getGraphFun(state).downloadImg(format);
 };
 
-const saveAction = (state, d, fileName) => {
-    getGraphFun(state).saveToDisk(fileName);
+const saveAction = (state) => {
+    getGraphFun(state).saveToDisk();
 };
 
 async function saveGraphMLFile(state) {
