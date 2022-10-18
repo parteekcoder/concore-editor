@@ -109,9 +109,7 @@ class GraphLoadSave extends GraphUndoRedo {
 
     saveToFolder() {
         const str = graphmlBuilder(this.jsonifyGraph());
-        const bytes = new TextEncoder().encode(str);
-        const blob = new Blob([bytes], { type: 'application/json;charset=utf-8' });
-        return blob;
+        return str;
     }
 
     getGraphML() {
