@@ -100,18 +100,35 @@ class GraphLoadSave extends GraphUndoRedo {
         return `${this.projectName}`;
     }
 
-    saveToDisk(fileName) {
+    async saveToDisk() {
         const str = graphmlBuilder(this.jsonifyGraph());
         const bytes = new TextEncoder().encode(str);
         const blob = new Blob([bytes], { type: 'application/json;charset=utf-8' });
-        saveAs(blob, `${fileName || `${this.getName()}-concore`}.graphml`);
+        if (navigator.userAgent.indexOf('Edg') !== -1 || navigator.userAgent.indexOf('Chrome') !== -1) {
+            const options = {
+                types: [
+                    {
+                        description: 'GraphMl Files',
+                        accept: {
+                            'text/graphml': ['.graphml'],
+                        },
+                    },
+                ],
+            };
+            const handle = await window.showSaveFilePicker(options);
+            const stream = await handle.createWritable();
+            await stream.write(blob);
+            await stream.close();
+        } else {
+            // eslint-disable-next-line no-alert
+            const fileName = prompt('Filename:');
+            saveAs(blob, `${fileName || `${this.getName()}-concore`}.graphml`);
+        }
     }
 
     saveToFolder() {
         const str = graphmlBuilder(this.jsonifyGraph());
-        const bytes = new TextEncoder().encode(str);
-        const blob = new Blob([bytes], { type: 'application/json;charset=utf-8' });
-        return blob;
+        return str;
     }
 
     getGraphML() {

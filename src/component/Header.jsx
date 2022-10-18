@@ -47,11 +47,12 @@ const Header = ({ superState, dispatcher }) => {
             <section className="toolbar">
                 {
                     actions.map(({
-                        text, active, action, icon, type, hotkey,
+                        text, active, visibility, action, icon, type, hotkey,
                     }, i) => {
                         const props = {
                             text,
                             active,
+                            visibility,
                             tabIndex: i + 1,
                             key: text,
                             action: (e) => action(superState, dispatcher, e),
