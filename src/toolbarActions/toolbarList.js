@@ -23,6 +23,7 @@ const toolbarList = (state, dispatcher) => [
         icon: FaPlus,
         action: createNode,
         active: true,
+        visibility: true,
         hotkey: 'Ctrl+G',
     },
     { type: 'vsep' },
@@ -32,6 +33,7 @@ const toolbarList = (state, dispatcher) => [
         icon: FaFileImport,
         action: readFile,
         active: true,
+        visibility: true,
         hotkey: 'Ctrl+O',
     },
     {
@@ -40,6 +42,7 @@ const toolbarList = (state, dispatcher) => [
         icon: FaSave,
         action: saveGraphMLFile,
         active: state.curGraphInstance,
+        visibility: true,
     },
     {
         type: 'action',
@@ -47,6 +50,7 @@ const toolbarList = (state, dispatcher) => [
         icon: FaSave,
         action: (s, d) => saveAction(s, d),
         active: true,
+        visibility: true,
     },
     {
         type: 'action',
@@ -54,6 +58,7 @@ const toolbarList = (state, dispatcher) => [
         icon: FaThermometerEmpty,
         action: clearAll,
         active: true,
+        visibility: true,
         hotkey: 'Ctrl+Backspace',
     },
     { type: 'vsep' },
@@ -63,6 +68,7 @@ const toolbarList = (state, dispatcher) => [
         icon: FaUndo,
         action: undo,
         active: state.undoEnabled,
+        visibility: true,
         hotkey: 'Ctrl+Z',
     },
     {
@@ -71,6 +77,7 @@ const toolbarList = (state, dispatcher) => [
         icon: FaRedo,
         action: redo,
         active: state.redoEnabled,
+        visibility: true,
         hotkey: 'Ctrl+Shift+Z,Ctrl+Y',
     },
     { type: 'vsep' },
@@ -80,6 +87,7 @@ const toolbarList = (state, dispatcher) => [
         icon: FaEdit,
         action: editElement,
         active: (state.eleSelected && state.eleSelectedPayload.type !== 'MIX'),
+        visibility: true,
         hotkey: 'Ctrl+E',
     },
     {
@@ -88,6 +96,7 @@ const toolbarList = (state, dispatcher) => [
         icon: FaTrash,
         action: deleteElem,
         active: state.eleSelected,
+        visibility: true,
         hotkey: 'Delete,Backspace,Del,Clear',
     },
     { type: 'vsep' },
@@ -97,6 +106,7 @@ const toolbarList = (state, dispatcher) => [
         icon: FaHistory,
         action: viewHistory,
         active: true,
+        visibility: true,
     },
     { type: 'vsep' },
     // server buttons
@@ -106,6 +116,7 @@ const toolbarList = (state, dispatcher) => [
         icon: state.isWorkflowOnServer ? FaToggleOn : FiToggleLeft,
         action: () => toggleServer(state, dispatcher),
         active: true,
+        visibility: true,
     },
     {
         type: 'action',
@@ -113,6 +124,7 @@ const toolbarList = (state, dispatcher) => [
         icon: FaHammer,
         action: () => state.curGraphInstance && state.curGraphInstance.build(),
         active: state.isWorkflowOnServer,
+        visibility: state.isWorkflowOnServer,
     },
     {
         type: 'action',
@@ -120,6 +132,7 @@ const toolbarList = (state, dispatcher) => [
         icon: FaBug,
         action: () => state.curGraphInstance && state.curGraphInstance.debug(),
         active: state.isWorkflowOnServer,
+        visibility: state.isWorkflowOnServer,
     },
     {
         type: 'action',
@@ -127,6 +140,7 @@ const toolbarList = (state, dispatcher) => [
         icon: FiPlay,
         action: () => state.curGraphInstance && state.curGraphInstance.run(),
         active: state.isWorkflowOnServer,
+        visibility: state.isWorkflowOnServer,
     },
     {
         type: 'action',
@@ -134,6 +148,7 @@ const toolbarList = (state, dispatcher) => [
         icon: FaRegTimesCircle,
         action: () => state.curGraphInstance && state.curGraphInstance.clear(),
         active: state.isWorkflowOnServer,
+        visibility: state.isWorkflowOnServer,
     },
     {
         type: 'action',
@@ -141,6 +156,7 @@ const toolbarList = (state, dispatcher) => [
         icon: FiStopCircle,
         action: () => state.curGraphInstance && state.curGraphInstance.stop(),
         active: state.isWorkflowOnServer,
+        visibility: state.isWorkflowOnServer,
     },
     {
         type: 'action',
@@ -148,6 +164,7 @@ const toolbarList = (state, dispatcher) => [
         icon: FaBomb,
         action: () => state.curGraphInstance && state.curGraphInstance.destroy(),
         active: state.isWorkflowOnServer,
+        visibility: state.isWorkflowOnServer,
     },
 
     // Not being implemented in version 1
@@ -195,6 +212,7 @@ const toolbarList = (state, dispatcher) => [
         icon: FiTriangle,
         action: () => { window.open('https://github.com/ControlCore-Project/concore-editor', '_blank'); },
         active: true,
+        visibility: true,
     },
     {
         type: 'action',
@@ -202,6 +220,7 @@ const toolbarList = (state, dispatcher) => [
         icon: FaShare,
         action: openShareModal,
         active: true,
+        visibility: true,
     },
     {
         type: 'menu',
@@ -211,6 +230,7 @@ const toolbarList = (state, dispatcher) => [
             { fn: () => downloadImg(s, d, 'JPG'), name: 'JPG' },
             { fn: () => downloadImg(s, d, 'PNG'), name: 'PNG' },
         ],
+        visibility: true,
         active: true,
     },
     { type: 'vsep' },
