@@ -4,7 +4,13 @@ import { highlight, languages } from 'prismjs/components/prism-core';
 import { saveAs } from 'file-saver';
 import Modal from './ParentModal';
 import './file-edit.css';
+import 'prismjs/components/prism-bash';
 import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-c';
+import 'prismjs/components/prism-cpp';
+import 'prismjs/components/prism-matlab';
+import 'prismjs/components/prism-verilog';
+import 'prismjs/components/prism-python';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism.css';
 import { actionType as T } from '../../reducer';
@@ -20,8 +26,12 @@ const FileEditModal = ({ superState, dispatcher }) => {
         }
     }, []);
 
-    const close = () => dispatcher({ type: T.EDIT_TEXTFILE, payload: { show: false } });
-    // TODO - Save file
+    const close = () => {
+        dispatcher({ type: T.EDIT_TEXTFILE, payload: { show: false } });
+        setCodeStuff('');
+        setFileName('');
+    };
+
     async function submit() {
         if (superState.fileHandle) {
             const stream = await superState.fileHandle.createWritable();
@@ -62,14 +72,33 @@ const FileEditModal = ({ superState, dispatcher }) => {
         }
     }, [superState.fileObj]);
 
+    function highlightSyntax(code) {
+        const extensions = ['v', 'c', 'h', 'hpp', 'cpp', 'py', 'm', 'sh'];
+        const fileEx = fileName.split('.').pop();
+        if (extensions.includes(fileEx)) {
+            switch (fileEx) {
+            case 'v': return highlight(code, languages.verilog, 'verilog');
+            case 'c': return highlight(code, languages.c, 'c');
+            case 'h': return highlight(code, languages.c, 'c');
+            case 'hpp': return highlight(code, languages.c, 'c');
+            case 'cpp': return highlight(code, languages.cpp, 'cpp');
+            case 'py': return highlight(code, languages.python, 'python');
+            case 'm': return highlight(code, languages.matlab, 'matlab');
+            case 'sh': return highlight(code, languages.bash, 'bash');
+            default: return highlight(code, languages.plaintext);
+            }
+        }
+        return highlight(code, languages.plaintext);
+    }
+
     return (
         <Modal
             ModelOpen={superState.textFileModal}
             closeModal={close}
             title={fileName}
         >
-            <div className="File Edit Container">
-                <div className="footer">
+            <div>
+                <div className="save-bar">
                     {fileName
                         && (
                             <button type="submit" className="btn btn-primary" onClick={submit}>Save</button>
@@ -81,27 +110,32 @@ const FileEditModal = ({ superState, dispatcher }) => {
                         <button type="submit" className="btn btn-primary" onClick={saveSubmit}>Save As</button>
                     )}
                 </div>
-                <div
-                    style={{
-                        minHeight: '400px',
-                    }}
-                >
+                <div className="setting-container">
                     <Editor
                         value={codeStuff}
                         onValueChange={(e) => setCodeStuff(e)}
-                        highlight={(code) => highlight(code, languages.js)}
+                        highlight={(code) => highlightSyntax(code)}
                         padding={10}
                         style={{
                             fontFamily: '"Arial"',
                             fontSize: 16,
                             minHeight: '100vh',
-                            minWidth: '80vw',
+                            minWidth: '90vw',
                             border: '1px solid black',
                         }}
                     />
                 </div>
-                <div className="footer">
-                    <button type="submit" className="btn btn-primary" onClick={submit}>Save</button>
+                <div className="save-bar">
+                    {fileName
+                        && (
+                            <button type="submit" className="btn btn-primary" onClick={submit}>Save</button>
+                        )}
+                    {dirButton && (
+                        <button type="submit" className="btn btn-primary" onClick={saveAsSubmit}>Save As</button>
+                    )}
+                    {!dirButton && (
+                        <button type="submit" className="btn btn-primary" onClick={saveSubmit}>Save As</button>
+                    )}
                 </div>
             </div>
         </Modal>
