@@ -117,7 +117,7 @@ const FileEditModal = ({ superState, dispatcher }) => {
                         highlight={(code) => highlightSyntax(code)}
                         padding={10}
                         style={{
-                            fontFamily: '"Arial"',
+                            fontFamily: '"Arial", "Helvetica", sans-serif',
                             fontSize: 16,
                             minHeight: '100vh',
                             minWidth: '90vw',
