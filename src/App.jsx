@@ -30,7 +30,7 @@ const app = () => {
             <Header superState={superState} dispatcher={dispatcher} />
             <section className="body" style={{ display: 'flex', overflow: 'hidden' }}>
                 <div style={{ display: 'flex', overflow: 'auto' }}>
-                    <LocalFileBrowser dispatcher={dispatcher} />
+                    <LocalFileBrowser superState={superState} dispatcher={dispatcher} />
                 </div>
                 <div className="graph" style={{ display: 'flex', overflow: 'hidden' }}>
                     <GraphWorkspace dispatcher={dispatcher} superState={superState} />
