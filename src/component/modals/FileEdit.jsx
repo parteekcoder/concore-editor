@@ -97,8 +97,8 @@ const FileEditModal = ({ superState, dispatcher }) => {
             closeModal={close}
             title={fileName}
         >
-            <div className="File Edit Container">
-                <div className="footer">
+            <div>
+                <div className="save-bar">
                     {fileName
                         && (
                             <button type="submit" className="btn btn-primary" onClick={submit}>Save</button>
@@ -110,11 +110,7 @@ const FileEditModal = ({ superState, dispatcher }) => {
                         <button type="submit" className="btn btn-primary" onClick={saveSubmit}>Save As</button>
                     )}
                 </div>
-                <div
-                    style={{
-                        minHeight: '400px',
-                    }}
-                >
+                <div className="setting-container">
                     <Editor
                         value={codeStuff}
                         onValueChange={(e) => setCodeStuff(e)}
@@ -124,10 +120,22 @@ const FileEditModal = ({ superState, dispatcher }) => {
                             fontFamily: '"Arial"',
                             fontSize: 16,
                             minHeight: '100vh',
-                            minWidth: '80vw',
+                            minWidth: '90vw',
                             border: '1px solid black',
                         }}
                     />
+                </div>
+                <div className="save-bar">
+                    {fileName
+                        && (
+                            <button type="submit" className="btn btn-primary" onClick={submit}>Save</button>
+                        )}
+                    {dirButton && (
+                        <button type="submit" className="btn btn-primary" onClick={saveAsSubmit}>Save As</button>
+                    )}
+                    {!dirButton && (
+                        <button type="submit" className="btn btn-primary" onClick={saveSubmit}>Save As</button>
+                    )}
                 </div>
             </div>
         </Modal>
