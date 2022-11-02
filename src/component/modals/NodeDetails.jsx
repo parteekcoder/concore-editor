@@ -119,19 +119,21 @@ const NodeDetails = ({
                             {
                                 localStorageManager.getFileList()
                                     // eslint-disable-next-line max-len, prefer-arrow-callback
-                                    ? JSON.parse(localStorageManager.getFileList()).map(function fn(item) {
-                                        const acceptedTypes = ['.v', '.c', '.cpp', '.py', '.m', '.sh'];
-                                        const list = [];
-                                        let index;
-                                        // eslint-disable-next-line max-len
-                                        if ((acceptedTypes.some((substring) => item.key.toString().includes(substring)))) {
-                                            list.push(item.key.toString());
-                                            indexOfFile.push(indexOfFile[indexOfFile.length - 1] + 1);
-                                            index = indexOfFile[indexOfFile.length - 1] + 1;
-                                        }
-                                        // eslint-disable-next-line jsx-a11y/control-has-associated-label
-                                        return <option value={list} key={index} />;
-                                    })
+                                    ? JSON.parse(localStorageManager.getFileList())
+                                        .map((item) => {
+                                            const list = [];
+                                            const acceptedTypes = ['.v', '.c', '.cpp', '.py', '.m', '.sh'];
+                                            let index;
+                                            // eslint-disable-next-line max-len
+                                            if ((acceptedTypes.some((substring) => item.key.toString().includes(substring)))) {
+                                                list.push(item.key.toString());
+                                                indexOfFile.push(indexOfFile[indexOfFile.length - 1] + 1);
+                                                index = indexOfFile[indexOfFile.length - 1] + 1;
+                                                // eslint-disable-next-line jsx-a11y/control-has-associated-label
+                                                return <option value={list} key={index} />;
+                                            }
+                                            return null;
+                                        })
                                     : ''
                             }
                         </datalist>
