@@ -96,7 +96,7 @@ async function saveGraphMLFile(state) {
     }
 }
 
-const readFile = (state, setState, file, fileHandle) => {
+const readFile = async (state, setState, file, fileHandle) => {
     if (file) {
         const fr = new FileReader();
         const projectName = file.name;
@@ -109,7 +109,8 @@ const readFile = (state, setState, file, fileHandle) => {
                     },
                 });
             };
-            fr.readAsText(file);
+            if (fileHandle) fr.readAsText(await fileHandle.getFile());
+            else fr.readAsText(file);
         }
     }
 };

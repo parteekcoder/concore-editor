@@ -61,14 +61,15 @@ const FileEditModal = ({ superState, dispatcher }) => {
         // dispatcher({ type: T.EDIT_TEXTFILE, payload: { show: false } });
     }
 
-    useEffect(() => {
+    useEffect(async () => {
         if (superState.fileObj) {
             setFileName(superState.fileObj.name);
             const fr = new FileReader();
             fr.onload = (x) => {
                 setCodeStuff(x.target.result);
             };
-            fr.readAsText(superState.fileObj);
+            if (superState.fileHandle) fr.readAsText(await superState.fileHandle.getFile());
+            else fr.readAsText(superState.fileObj);
         }
     }, [superState.fileObj]);
 
