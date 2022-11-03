@@ -12,6 +12,7 @@ import './fileBrowser.css';
 const LocalFileBrowser = ({ superState, dispatcher }) => {
     const fileRef = React.useRef();
     const [dirButton, setDirButton] = useState(false);
+    const [fileState, setFileState] = useState([]);
 
     useEffect(() => {
         if (navigator.userAgent.indexOf('Edg') !== -1 || navigator.userAgent.indexOf('Chrome') !== -1) {
@@ -19,8 +20,6 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
         }
         dispatcher({ type: T.SET_FILE_REF, payload: fileRef });
     }, []);
-
-    const [fileState, setFileState] = useState([]);
 
     useEffect(() => {
         // TODO - Loading file list from localStorage. Not supported by browsers.
