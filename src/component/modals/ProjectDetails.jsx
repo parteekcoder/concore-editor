@@ -10,7 +10,7 @@ const ProjectDetails = ({ superState, dispatcher }) => {
     const [authorName, setAuthorName] = useState('Default');
     // const [serverID, setServerID] = useState('');
     const inputRef = useCallback((node) => node && node.focus(), []);
-    const newGraphModal = superState.newGraphModal || superState.graphs.length === 0;
+    const { newGraphModal } = superState;
     const editDetailsModal = superState.editDetailsModal || (curGraph && !curGraph.projectName);
 
     const setProjAuthorName = (a) => {
