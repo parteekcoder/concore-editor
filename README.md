@@ -53,9 +53,9 @@ If we create our instance of the graph with `tailored-graph-builder`, we will ge
 
 # Deploying concore-editor in GitHub
 
-If you have forked this repository, make sure to configure the GitHub actions. This is done only once.
+If you have forked this repository, make sure to configure the GitHub actions. This is done *only once* for the entire GitHub deployment. Go to your fork's settings/pages (for example, https://github.com/pradeebanlab/concore-editor/settings/pages), and enable the GitHub Pages as shown below.
 
-Go to your fork's settings/pages (for example, https://github.com/pradeebanlab/concore-editor/settings/pages), and enable the GitHub Pages as shown below.
+![The Pages Configuration](figures/github-pages.png)
 
 Once this is configured, every time you want to update the hosted concore-editor, you need to run the "Build and Deploy" action as elaborated below.
 
