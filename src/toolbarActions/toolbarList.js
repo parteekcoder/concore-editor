@@ -22,7 +22,7 @@ const toolbarList = (state, dispatcher) => [
         text: 'Node',
         icon: FaPlus,
         action: createNode,
-        active: true,
+        active: state.curGraphInstance,
         visibility: true,
         hotkey: 'Ctrl+G',
     },

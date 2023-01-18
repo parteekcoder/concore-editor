@@ -41,7 +41,7 @@ const Header = ({ superState, dispatcher }) => {
                 {
                     superState.curGraphInstance ? `${
                         superState.curGraphInstance.projectName
-                    } - concore Editor` : ''
+                    } - concore Editor` : 'untitled'
                 }
             </section>
             <section className="toolbar">
