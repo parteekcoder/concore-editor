@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import { actionType as T } from '../../reducer';
 import GraphLoadSave from './5-load-save';
 // import {
@@ -66,31 +67,43 @@ class GraphServer extends GraphLoadSave {
 
     build() {
         // TODO
+        Axios.post(`http://127.0.0.1:5000/build/sample?fetch=${this.getGraphML()}&apikey=${this.id}`)
+            .then(() => { });
         if (this.serverID);
     }
 
     debug() {
         // TODO
+        Axios.post('http://127.0.0.1:5000/debug/sample')
+            .then(() => { });
         if (this.serverID);
     }
 
     run() {
         // TODO
+        Axios.post('http://127.0.0.1:5000/run/sample')
+            .then(() => { });
         if (this.serverID);
     }
 
     clear() {
         // TODO
+        Axios.post('http://127.0.0.1:5000/clear/sample')
+            .then(() => { });
         if (this.serverID);
     }
 
     stop() {
         // TODO
+        Axios.post('http://127.0.0.1:5000/stop/sample')
+            .then(() => { });
         if (this.serverID);
     }
 
     destroy() {
         // TODO
+        Axios.post('http://127.0.0.1:5000/destroy/sample')
+            .then(() => { });
         if (this.serverID);
     }
 
