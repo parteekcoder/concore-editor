@@ -33,6 +33,25 @@ This branch will be synced with the changes from the main periodically. Easy to 
 2. `npm i`
 3. `npm start`
 
+If this throws a long error in the browser and console about line endings (LF/CRLF), please follow the below steps.
+
+In  ~/.gitconfig, set autocrlf to false as below.
+````
+[core]
+         autocrlf = false
+````
+
+Then run the below from the concore editor source code in terminal.
+
+````
+git rm --cached -r .
+git reset --hard
+git pull --rebase
+````
+
+Now re-run with npm as above.
+
+
 This branch may contain `src/graph-builder/tailored-graph-builder.js`. It can be safely removed.
 
 ### 2. Make changes to the master branch
@@ -67,4 +86,5 @@ We have two workflows.
  
 
 Please go to the url https://github.com/ControlCore-Project/concore-editor/actions/workflows/buildAndDeploy.yml and trigger this particular workflow. This will in turn automatically trigger the Pages Build and Deploy action. Once that action also completes successfully, the new page will be alive. Depending on the nature of the changes, you may need to clear the cache/cookies to make the changes visible to your browser. You can choose to delete just the cookies and data of controlcore-project.github.io as stored in your browser. Please check the browser documentation for more information on deleting the cookies.
+
  
