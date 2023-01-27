@@ -68,42 +68,42 @@ class GraphServer extends GraphLoadSave {
     build() {
         // TODO
         Axios.post(`http://127.0.0.1:5000/build/sample?fetch=${this.getGraphML()}&apikey=${this.id}`)
-            .then(() => { });
+            .then(() => { }).catch((err) => { alert(err); });
         if (this.serverID);
     }
 
     debug() {
         // TODO
-        Axios.post('http://127.0.0.1:5000/debug/sample')
-            .then(() => { });
+        Axios.post(`http://127.0.0.1:5000/debug/${this.getGraphML()}`)
+            .then(() => { }).catch((err) => { alert(err); });
         if (this.serverID);
     }
 
     run() {
         // TODO
         Axios.post('http://127.0.0.1:5000/run/sample')
-            .then(() => { });
+            .then(() => { }).catch((err) => { alert(err); });
         if (this.serverID);
     }
 
     clear() {
         // TODO
         Axios.post('http://127.0.0.1:5000/clear/sample')
-            .then(() => { });
+            .then(() => { }).catch((err) => { alert(err); });
         if (this.serverID);
     }
 
     stop() {
         // TODO
         Axios.post('http://127.0.0.1:5000/stop/sample')
-            .then(() => { });
+            .then(() => { }).catch((err) => { alert(err); });
         if (this.serverID);
     }
 
     destroy() {
         // TODO
         Axios.post('http://127.0.0.1:5000/destroy/sample')
-            .then(() => { });
+            .then(() => { }).catch((err) => { alert(err); });
         if (this.serverID);
     }
 
