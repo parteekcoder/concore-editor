@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import { actionType as T } from '../../reducer';
 import GraphLoadSave from './5-load-save';
 // import {
@@ -66,31 +67,67 @@ class GraphServer extends GraphLoadSave {
 
     build() {
         // TODO
+        Axios.post('http://127.0.0.1:5000/build/demo?fetch=sample&apikey=xyz')
+            .then((res) => { // eslint-disable-next-line
+                alert(res.data['message'])
+            }).catch((err) => { // eslint-disable-next-line
+                alert(err);
+            });
         if (this.serverID);
     }
 
     debug() {
         // TODO
+        Axios.post('http://127.0.0.1:5000/debug/demo')
+            .then((res) => { // eslint-disable-next-line
+                alert(res.data['message'])
+            }).catch((err) => { // eslint-disable-next-line
+                alert(err);
+            });
         if (this.serverID);
     }
 
     run() {
         // TODO
+        Axios.post('http://127.0.0.1:5000/run/demo')
+            .then((res) => { // eslint-disable-next-line
+                alert(res.data['message'])
+            }).catch((err) => { // eslint-disable-next-line
+                alert(err);
+            });
         if (this.serverID);
     }
 
     clear() {
         // TODO
+        Axios.post('http://127.0.0.1:5000/clear/demo')
+            .then((res) => { // eslint-disable-next-line
+                alert(res.data['message'])
+            }).catch((err) => { // eslint-disable-next-line
+                alert(err);
+            });
         if (this.serverID);
     }
 
     stop() {
         // TODO
+        Axios.post('http://127.0.0.1:5000/stop/demo')
+            .then((res) => { // eslint-disable-next-line
+                alert(res.data['message'])
+            }).catch((err) => { // eslint-disable-next-line
+                alert(err);
+            });
         if (this.serverID);
     }
 
     destroy() {
         // TODO
+        Axios.delete('http://127.0.0.1:5000/destroy/demo')
+            .then((res) => { // eslint-disable-next-line
+                alert(res.data['message'])
+            }).catch((err) => { // eslint-disable-next-line
+                alert(err);
+            });
         if (this.serverID);
     }
 
