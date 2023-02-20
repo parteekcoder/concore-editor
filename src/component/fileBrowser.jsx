@@ -31,7 +31,7 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
     }, [fileState]);
 
     const handleSelectFile = (data) => {
-        const fileExtensions = ['jpeg', 'jpg', 'png'];
+        const fileExtensions = ['jpeg', 'jpg', 'png', 'exe'];
         if (fileExtensions.includes(data.fileObj.name.split('.').pop())) {
             // eslint-disable-next-line no-alert
             alert('Wrong file extension');
