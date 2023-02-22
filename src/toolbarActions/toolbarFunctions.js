@@ -69,6 +69,8 @@ const editElement = (state, setState) => {
 const deleteElem = (state) => {
     const tid = new Date().getTime();
     state.eleSelectedPayload.ids.forEach((id) => getGraphFun(state).deleteElem(id, tid));
+    // eslint-disable-next-line
+    state.eleSelectedPayload.type = 'MIX';
 };
 
 const downloadImg = (state, setState, format) => {
