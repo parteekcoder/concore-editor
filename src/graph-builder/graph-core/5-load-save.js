@@ -126,6 +126,26 @@ class GraphLoadSave extends GraphUndoRedo {
         }
     }
 
+    async saveWithoutFileHandle() {
+        const str = graphmlBuilder(this.jsonifyGraph());
+        const bytes = new TextEncoder().encode(str);
+        const blob = new Blob([bytes], { type: 'application/json;charset=utf-8' });
+        const options = {
+            types: [
+                {
+                    description: 'GraphMl Files',
+                    accept: {
+                        'text/graphml': ['.graphml'],
+                    },
+                },
+            ],
+        };
+        const handle = await window.showSaveFilePicker(options);
+        const stream = await handle.createWritable();
+        await stream.write(blob);
+        await stream.close();
+    }
+
     saveToFolder() {
         const str = graphmlBuilder(this.jsonifyGraph());
         return str;
