@@ -88,6 +88,8 @@ async function saveGraphMLFile(state) {
             const stream = await graph.fileHandle.createWritable();
             await stream.write(getGraphFun(state).saveToFolder());
             await stream.close();
+        } else if (state.fileHandle === null) {
+            getGraphFun(state).saveWithoutFileHandle();
         } else {
             // eslint-disable-next-line no-alert
             alert('Switch to Edge/Chrome!');
