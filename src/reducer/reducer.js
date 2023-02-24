@@ -109,7 +109,7 @@ const reducer = (state, action) => {
     }
     case T.CHANGE_TAB: return { ...state, curGraphIndex: action.payload };
 
-    case T.NEW_GRAPH: return { ...state, newGraphModal: true, fileHandle: null };
+    case T.NEW_GRAPH: return { ...state, newGraphModal: true };
     case T.REMOVE_GRAPH: return {
         ...state,
         graphs: state.graphs.filter((e, i) => i !== action.payload),
