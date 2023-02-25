@@ -4,6 +4,7 @@ import graphmlBuilder from '../graphml/builder';
 import BendingDistanceWeight from '../calculations/bending-dist-weight';
 import GraphUndoRedo from './4-undo-redo';
 import graphMLParser from '../graphml/parser';
+import { actionType as T } from '../../reducer';
 
 class GraphLoadSave extends GraphUndoRedo {
     autoSaveIntervalId
@@ -141,6 +142,10 @@ class GraphLoadSave extends GraphUndoRedo {
             ],
         };
         const handle = await window.showSaveFilePicker(options);
+        this.dispatcher({
+            type: T.SET_FILE_HANDLE,
+            payload: { curGraphIndex: this.superState.curGraphIndex, fileHandle: handle },
+        });
         const stream = await handle.createWritable();
         await stream.write(blob);
         await stream.close();
