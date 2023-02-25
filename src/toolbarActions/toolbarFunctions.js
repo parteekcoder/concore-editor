@@ -92,8 +92,6 @@ async function saveGraphMLFile(state) {
             alert('File saved Successfully');
         } else if (graph.fileHandle === null) {
             getGraphFun(state).saveWithoutFileHandle();
-            // eslint-disable-next-line no-alert
-            alert('File saved Successfully');
         } else {
             // eslint-disable-next-line no-alert
             alert('Switch to Edge/Chrome!');

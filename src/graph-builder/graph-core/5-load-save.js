@@ -149,6 +149,8 @@ class GraphLoadSave extends GraphUndoRedo {
         const stream = await handle.createWritable();
         await stream.write(blob);
         await stream.close();
+        // eslint-disable-next-line no-alert
+        alert('File saved Successfully');
     }
 
     saveToFolder() {
