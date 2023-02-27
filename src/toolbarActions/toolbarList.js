@@ -239,7 +239,7 @@ const toolbarList = (state, dispatcher) => [
             { fn: () => downloadImg(s, d, 'PNG'), name: 'PNG' },
         ],
         visibility: true,
-        active: true,
+        active: state.curGraphInstance,
     },
     { type: 'vsep' },
 ];
