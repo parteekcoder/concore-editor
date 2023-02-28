@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 import {
-    FaSave, FaUndo, FaRedo, FaTrash, FaFileImport, FaPlus, FaDownload, FaEdit, FaRegTimesCircle, FaShare, FaHistory,
+    FaSave, FaUndo, FaRedo, FaTrash, FaFileImport, FaPlus, FaDownload, FaEdit, FaRegTimesCircle, FaHistory,
     FaHammer, FaBug, FaBomb, FaToggleOn, FaThermometerEmpty,
 } from 'react-icons/fa';
 
@@ -11,7 +11,7 @@ import {
 
 import {
     createNode, editElement, deleteElem, downloadImg, saveAction, saveGraphMLFile,
-    createFile, readFile, clearAll, undo, redo, openShareModal, viewHistory,
+    createFile, readFile, clearAll, undo, redo, viewHistory,
     toggleServer,
     // openSettingModal,
 } from './toolbarFunctions';
@@ -222,14 +222,14 @@ const toolbarList = (state, dispatcher) => [
         active: true,
         visibility: true,
     },
-    {
-        type: 'action',
-        text: 'Share',
-        icon: FaShare,
-        action: openShareModal,
-        active: true,
-        visibility: true,
-    },
+    // {
+    //     type: 'action',
+    //     text: 'Share',
+    //     icon: FaShare,
+    //     action: openShareModal,
+    //     active: true,
+    //     visibility: true,
+    // },
     {
         type: 'menu',
         text: 'Export',
