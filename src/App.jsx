@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import './App.css';
 import ReactTooltip from 'react-tooltip';
 import GraphWorkspace from './GraphWorkspace';
@@ -15,6 +15,16 @@ import FileEditModal from './component/modals/FileEdit';
 
 const app = () => {
     const [superState, dispatcher] = useReducer(reducer, initialState);
+    useEffect(() => {
+        const handleBeforeUnload = (e) => {
+            e.returnValue = 'Are you sure you want to leave this page?';
+            return 'Are you sure you want to leave this page?';
+        };
+        window.onbeforeunload = handleBeforeUnload;
+        return () => {
+            window.onbeforeunload = null;
+        };
+    }, []);
     return (
         <div className="container">
             <ProjectDetails superState={superState} dispatcher={dispatcher} />
