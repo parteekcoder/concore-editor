@@ -222,14 +222,14 @@ const toolbarList = (state, dispatcher) => [
         active: true,
         visibility: true,
     },
-    {
-        type: 'action',
-        text: 'Share',
-        icon: FaShare,
-        action: openShareModal,
-        active: true,
-        visibility: true,
-    },
+    // {
+    //     type: 'action',
+    //     text: 'Share',
+    //     icon: FaShare,
+    //     action: openShareModal,
+    //     active: true,
+    //     visibility: true,
+    // },
     {
         type: 'menu',
         text: 'Export',
