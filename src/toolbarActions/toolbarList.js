@@ -218,7 +218,7 @@ const toolbarList = (state, dispatcher) => [
         type: 'action',
         text: 'Contribute',
         icon: FiTriangle,
-        action: () => { window.open('https://github.com/ControlCore-Project/concore-editor', '_blank'); },
+        action: () => { window.open('https://github.com/ControlCore-Project/concore', '_blank'); },
         active: true,
         visibility: true,
     },
