@@ -106,6 +106,21 @@ class CoreGraph {
         this.cy.emit('graph-modified');
     }
 
+    setProjectAuthor(authorName, shouldEmit = true) {
+        this.authorName = authorName;
+        if (shouldEmit) {
+            this.dispatcher({
+                type: T.SET_AUTHOR,
+                payload: {
+                    value: authorName,
+                    graphID: this.id,
+                    type: 'authorName',
+                },
+            });
+        }
+        this.cy.emit('graph-modified');
+    }
+
     setServerID(serverID, shouldEmit = true) {
         this.serverID = serverID;
         if (shouldEmit) {
