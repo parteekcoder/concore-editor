@@ -59,6 +59,7 @@ class GraphLoadSave extends GraphUndoRedo {
             serverID: this.serverID,
             fileName: null,
             fileHandle: null,
+            authorName: this.authorName,
         };
         this.cy.nodes().forEach((node) => {
             if (this.shouldNodeBeSaved(node.id())) {
@@ -86,10 +87,9 @@ class GraphLoadSave extends GraphUndoRedo {
             }
         });
         graph.actionHistory = this.actionArr.map(({
-            tid, inverse, equivalent, authorName, hash,
+            tid, inverse, equivalent, hash,
         }) => ({
             tid,
-            authorName,
             inverse: GraphLoadSave.stringifyAction(inverse),
             equivalent: GraphLoadSave.stringifyAction(equivalent),
             hash,
@@ -185,6 +185,7 @@ class GraphLoadSave extends GraphUndoRedo {
 
     setGraphML(graphML) {
         graphMLParser(graphML).then((graphObject) => {
+            console.log(graphObject);
             localStorageManager.save(this.id, graphObject);
             this.loadGraphFromLocalStorage();
         });

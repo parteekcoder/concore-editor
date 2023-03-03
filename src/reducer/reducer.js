@@ -97,7 +97,7 @@ const reducer = (state, action) => {
                     graphML: action.payload.graphML,
                     fileHandle: action.payload.fileHandle || null,
                     fileName: action.payload.fileName,
-                    authorName: action.payload.authorName,
+                    authorName: action.payload.authorName || '',
                 },
             ],
         };

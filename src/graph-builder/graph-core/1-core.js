@@ -17,11 +17,13 @@ class CoreGraph {
 
     projectName;
 
+    authorName;
+
     cy;
 
     bendNode;
 
-    constructor(id, element, dispatcher, superState, projectName) {
+    constructor(id, element, dispatcher, superState, projectName, nodeValidator, edgeValidator, authorName) {
         if (dispatcher) this.dispatcher = dispatcher;
         if (superState) this.superState = superState;
         if (typeof cytoscape('core', 'edgehandles') !== 'function') {
@@ -37,6 +39,7 @@ class CoreGraph {
         this.cy = cytoscape({ ...cyOptions, container: element });
         this.id = id;
         this.projectName = projectName;
+        this.authorName = authorName;
         this.cy.emit('graph-modified');
         this.bendNode = this.cy.add(
             { group: 'nodes', data: { type: 'bend' }, classes: ['hidden'] },
