@@ -1,5 +1,4 @@
 import parser from '../graph-builder/graphml/parser';
-import { parseDetails } from '../graph-builder/graphml/parser/parseProperties';
 import { actionType as T } from '../reducer';
 
 const getGraphFun = (superState) => superState.curGraphInstance;

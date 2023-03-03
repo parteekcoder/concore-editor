@@ -185,7 +185,6 @@ class GraphLoadSave extends GraphUndoRedo {
 
     setGraphML(graphML) {
         graphMLParser(graphML).then((graphObject) => {
-            console.log(graphObject);
             localStorageManager.save(this.id, graphObject);
             this.loadGraphFromLocalStorage();
         });
