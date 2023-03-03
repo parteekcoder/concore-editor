@@ -1,4 +1,5 @@
 import { saveAs } from 'file-saver';
+import { toast } from 'react-toastify';
 import localStorageManager from '../local-storage-manager';
 import graphmlBuilder from '../graphml/builder';
 import BendingDistanceWeight from '../calculations/bending-dist-weight';
@@ -149,8 +150,7 @@ class GraphLoadSave extends GraphUndoRedo {
         const stream = await handle.createWritable();
         await stream.write(blob);
         await stream.close();
-        // eslint-disable-next-line no-alert
-        alert('File saved Successfully');
+        toast.success('File saved Successfully');
     }
 
     saveToFolder() {
