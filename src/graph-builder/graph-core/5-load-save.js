@@ -126,9 +126,15 @@ class GraphLoadSave extends GraphUndoRedo {
             const fileName = prompt('Filename:');
             saveAs(blob, `${fileName || `${this.getName()}-concore`}.graphml`);
         }
+        toast.success('File saved Successfully');
     }
 
     async saveWithoutFileHandle() {
+        const { userAgent } = navigator;
+        if (userAgent.match(/firefox|fxios/i)) {
+            toast.info('Switch to Edge/Chrome!');
+            return;
+        }
         const str = graphmlBuilder(this.jsonifyGraph());
         const bytes = new TextEncoder().encode(str);
         const blob = new Blob([bytes], { type: 'application/json;charset=utf-8' });
