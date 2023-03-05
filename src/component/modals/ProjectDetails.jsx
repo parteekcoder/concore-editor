@@ -39,6 +39,7 @@ const ProjectDetails = ({ superState, dispatcher }) => {
             superState.curGraphInstance.setProjectAuthor(authorName);
             dispatcher({ type: T.SET_EDIT_DETAILS_MODAL, payload: false });
         }
+        localStorageManager.saveAllgs();
         localStorageManager.setAuthorName(authorName);
     };
 
