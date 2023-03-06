@@ -1,4 +1,6 @@
 import React, { useEffect, useReducer } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import ReactTooltip from 'react-tooltip';
 import GraphWorkspace from './GraphWorkspace';
@@ -47,6 +49,7 @@ const app = () => {
                 </div>
             </section>
             <ReactTooltip place="bottom" type="dark" effect="solid" />
+            <ToastContainer position="top-right" autoClose={5000} pauseOnHover={false} />
         </div>
     );
 };
