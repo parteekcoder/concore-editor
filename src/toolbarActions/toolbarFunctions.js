@@ -1,4 +1,5 @@
 import parser from '../graph-builder/graphml/parser';
+import { toast } from 'react-toastify';
 import { actionType as T } from '../reducer';
 
 const getGraphFun = (superState) => superState.curGraphInstance;
@@ -89,17 +90,14 @@ async function saveGraphMLFile(state) {
             const stream = await graph.fileHandle.createWritable();
             await stream.write(getGraphFun(state).saveToFolder());
             await stream.close();
-            // eslint-disable-next-line no-alert
-            alert('File saved Successfully');
+            toast.success('File saved Successfully');
         } else if (graph.fileHandle === null) {
             getGraphFun(state).saveWithoutFileHandle();
         } else {
-            // eslint-disable-next-line no-alert
-            alert('Switch to Edge/Chrome!');
+            toast.info('Switch to Edge/Chrome!');
         }
     } else {
-        // eslint-disable-next-line no-alert
-        alert('Switch to Edge/Chrome!');
+        toast.info('Switch to Edge/Chrome!');
     }
 }
 
