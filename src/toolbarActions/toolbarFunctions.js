@@ -1,5 +1,5 @@
-import parser from '../graph-builder/graphml/parser';
 import { toast } from 'react-toastify';
+import parser from '../graph-builder/graphml/parser';
 import { actionType as T } from '../reducer';
 
 const getGraphFun = (superState) => superState.curGraphInstance;
