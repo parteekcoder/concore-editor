@@ -86,12 +86,13 @@ class CoreGraph {
     }
 
     set({
-        cy, dispatcher, superState, projectName,
+        cy, dispatcher, superState, projectName, authorName,
     }) {
         if (dispatcher) this.dispatcher = dispatcher;
         if (superState) this.superState = superState;
         if (cy) this.cy = cy;
         if (projectName) this.projectName = projectName;
+        if (authorName) this.authorName = authorName;
     }
 
     setProjectName(projectName, shouldEmit = true) {
