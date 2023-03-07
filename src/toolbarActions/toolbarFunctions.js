@@ -72,6 +72,8 @@ const deleteElem = (state) => {
     state.eleSelectedPayload.ids.forEach((id) => getGraphFun(state).deleteElem(id, tid));
     // eslint-disable-next-line
     state.eleSelectedPayload.type = 'MIX';
+    // eslint-disable-next-line
+    state.eleSelected = false;
 };
 
 const downloadImg = (state, setState, format) => {

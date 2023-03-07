@@ -65,7 +65,7 @@ const toolbarList = (state, dispatcher) => [
         text: 'Empty',
         icon: FaThermometerEmpty,
         action: clearAll,
-        active: true,
+        active: state.curGraphInstance,
         visibility: true,
         hotkey: 'Ctrl+Backspace',
     },
