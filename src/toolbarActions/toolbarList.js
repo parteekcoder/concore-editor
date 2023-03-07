@@ -231,7 +231,7 @@ const toolbarList = (state, dispatcher) => [
     //     visibility: true,
     // },
     {
-        type: 'menu',
+        type: state.curGraphInstance ? 'menu' : 'action',
         text: 'Export',
         icon: FaDownload,
         action: (s, d) => [
