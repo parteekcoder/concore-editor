@@ -97,6 +97,7 @@ const reducer = (state, action) => {
                     graphML: action.payload.graphML,
                     fileHandle: action.payload.fileHandle || null,
                     fileName: action.payload.fileName,
+                    authorName: action.payload.authorName || '',
                 },
             ],
         };
@@ -153,7 +154,11 @@ const reducer = (state, action) => {
     }
 
     case T.SET_AUTHOR: {
-        return { ...state, authorName: action.payload };
+        const newState = { ...state };
+        newState.graphs = newState.graphs.map((g) => (
+            g.graphID === action.payload.graphID ? { ...g, [action.payload.type]: action.payload.value } : g
+        ));
+        return { ...newState };
     }
 
     case T.IS_WORKFLOW_ON_SERVER: {

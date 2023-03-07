@@ -13,36 +13,33 @@ const ProjectDetails = ({ superState, dispatcher }) => {
     const { newGraphModal } = superState;
     const editDetailsModal = superState.editDetailsModal || (curGraph && !curGraph.projectName);
 
-    const setProjAuthorName = (a) => {
-        setAuthorName(a);
-        dispatcher({
-            type: T.SET_AUTHOR,
-            payload: a,
-        });
-    };
-
     useEffect(() => {
         if (superState.editDetailsModal && curGraph) {
             setProjectName(curGraph.projectName);
-        } else setProjectName('');
-    }, [superState.authorName, superState.editDetailsModal, curGraph]);
+            setAuthorName(curGraph.authorName);
+        } else {
+            setProjectName('');
+        }
+    }, [curGraph?.authorName, superState.editDetailsModal, curGraph]);
 
     useEffect(() => {
-        if (superState.authorName) setAuthorName(superState.authorName);
-        else {
+        if (curGraph?.authorName) {
+            setAuthorName(curGraph.authorName);
+        } else {
             const authorNameE = localStorageManager.getAuthorName();
-            setProjAuthorName(authorNameE);
+            setAuthorName(authorNameE);
         }
     }, []);
 
     const submit = (e) => {
         e.preventDefault();
-        if (newGraphModal) dispatcher({ type: T.ADD_GRAPH, payload: { projectName } });
+        if (newGraphModal) dispatcher({ type: T.ADD_GRAPH, payload: { projectName, authorName } });
         else if (editDetailsModal) {
             superState.curGraphInstance.setProjectName(projectName);
+            superState.curGraphInstance.setProjectAuthor(authorName);
             dispatcher({ type: T.SET_EDIT_DETAILS_MODAL, payload: false });
         }
-        setProjAuthorName(authorName);
+        localStorageManager.saveAllgs();
         localStorageManager.setAuthorName(authorName);
     };
 
