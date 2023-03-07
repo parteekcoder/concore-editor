@@ -91,7 +91,7 @@ async function saveGraphMLFile(state) {
             await stream.write(getGraphFun(state).saveToFolder());
             await stream.close();
             toast.success('File saved Successfully');
-        } else if (graph.fileHandle === null) {
+        } else if (!graph.fileHandle) {
             getGraphFun(state).saveWithoutFileHandle();
         } else {
             toast.info('Switch to Edge/Chrome!');

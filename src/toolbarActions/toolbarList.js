@@ -57,7 +57,7 @@ const toolbarList = (state, dispatcher) => [
         text: 'Save As',
         icon: FaSave,
         action: (s, d) => saveAction(s, d),
-        active: true,
+        active: state.curGraphInstance,
         visibility: true,
     },
     {
@@ -231,7 +231,7 @@ const toolbarList = (state, dispatcher) => [
     //     visibility: true,
     // },
     {
-        type: 'menu',
+        type: state.curGraphInstance ? 'menu' : 'action',
         text: 'Export',
         icon: FaDownload,
         action: (s, d) => [
