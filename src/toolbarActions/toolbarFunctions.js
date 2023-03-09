@@ -67,11 +67,10 @@ const editElement = (state, setState) => {
     }
 };
 
-const deleteElem = (state) => {
+const deleteElem = (state, dispatcher) => {
     const tid = new Date().getTime();
     state.eleSelectedPayload.ids.forEach((id) => getGraphFun(state).deleteElem(id, tid));
-    // eslint-disable-next-line
-    state.eleSelectedPayload.type = 'MIX';
+    dispatcher({ type: T.ELE_UNSELECTED, payload: null });
 };
 
 const downloadImg = (state, setState, format) => {
