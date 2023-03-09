@@ -60,6 +60,7 @@ class GraphLoadSave extends GraphUndoRedo {
             serverID: this.serverID,
             fileName: null,
             fileHandle: null,
+            authorName: this.authorName,
         };
         this.cy.nodes().forEach((node) => {
             if (this.shouldNodeBeSaved(node.id())) {
@@ -87,10 +88,9 @@ class GraphLoadSave extends GraphUndoRedo {
             }
         });
         graph.actionHistory = this.actionArr.map(({
-            tid, inverse, equivalent, authorName, hash,
+            tid, inverse, equivalent, hash,
         }) => ({
             tid,
-            authorName,
             inverse: GraphLoadSave.stringifyAction(inverse),
             equivalent: GraphLoadSave.stringifyAction(equivalent),
             hash,
@@ -176,12 +176,13 @@ class GraphLoadSave extends GraphUndoRedo {
             this.addEdge({ ...edge, sourceID: edge.source, targetID: edge.target }, 0);
         });
         content.actionHistory.forEach(({
-            inverse, equivalent, tid, authorName,
+            inverse, equivalent, tid,
         }) => {
-            this.addAction(GraphLoadSave.parseAction(inverse), GraphLoadSave.parseAction(equivalent), tid, authorName);
+            this.addAction(GraphLoadSave.parseAction(inverse), GraphLoadSave.parseAction(equivalent), tid);
         });
         this.setProjectName(content.projectName);
         this.setServerID(this.serverID || content.serverID);
+        this.setProjectAuthor(content.authorName);
     }
 
     saveLocalStorage() {

@@ -4,7 +4,7 @@ import MyGraph from './graph-builder';
 import { actionType as T } from './reducer';
 
 function Graph({
-    el, superState, dispatcher, graphID, serverID, graphML, projectName, graphContainerRef, active,
+    el, superState, dispatcher, graphID, serverID, graphML, projectName, graphContainerRef, active, authorName,
 }) {
     const [instance, setInstance] = useState(null);
     const ref = useRef();
@@ -18,7 +18,7 @@ function Graph({
 
     const initialiseNewGraph = () => {
         const myGraph = new MyGraph(
-            graphID, ref.current, dispatcher, superState, projectName, nodeValidator, edgeValidator,
+            graphID, ref.current, dispatcher, superState, projectName, nodeValidator, edgeValidator, authorName,
         );
         if (graphID) myGraph.loadGraphFromLocalStorage();
         if (serverID) {

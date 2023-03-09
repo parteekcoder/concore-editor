@@ -1,4 +1,5 @@
 import { toast } from 'react-toastify';
+import parser from '../graph-builder/graphml/parser';
 import { actionType as T } from '../reducer';
 
 const getGraphFun = (superState) => superState.curGraphInstance;
@@ -105,11 +106,13 @@ const readFile = async (state, setState, file, fileHandle) => {
         const projectName = file.name;
         if (file.name.split('.').pop() === 'graphml') {
             fr.onload = (x) => {
-                setState({
-                    type: T.ADD_GRAPH,
-                    payload: {
-                        projectName, graphML: x.target.result, fileHandle, fileName: file.name,
-                    },
+                parser(x.target.result).then(({ authorName }) => {
+                    setState({
+                        type: T.ADD_GRAPH,
+                        payload: {
+                            projectName, graphML: x.target.result, fileHandle, fileName: file.name, authorName,
+                        },
+                    });
                 });
             };
             if (fileHandle) fr.readAsText(await fileHandle.getFile());
