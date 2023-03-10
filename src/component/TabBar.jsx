@@ -16,7 +16,7 @@ const TabBar = ({ superState, dispatcher }) => {
         if (!window.confirm('Do you confirm to close the tab? This action is irreversable.')) return;
         localStorageManager.remove(superState.graphs[i] ? superState.graphs[i].graphID : null);
         dispatcher({ type: T.REMOVE_GRAPH, payload: i });
-        if (!superState.curGraphIndex) {
+        if (!superState.curGraphIndex && superState.graphs.length === 0) {
             dispatcher({ type: T.SET_CUR_INSTANCE, payload: null });
         }
     };
