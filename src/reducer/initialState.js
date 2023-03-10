@@ -24,6 +24,7 @@ const initialState = {
     isWorkflowOnServer: false,
     curGraphInstance: null,
     zoomLevel: 100,
+    uploadedDirName: null,
 };
 
 const initialGraphState = {

@@ -219,7 +219,7 @@ const toolbarList = (state, dispatcher) => [
         text: 'Contribute',
         icon: FiTriangle,
         action: () => { window.open('https://github.com/ControlCore-Project/concore', '_blank'); },
-        active: true,
+        active: state.curGraphInstance || state.uploadedDirName,
         visibility: true,
     },
     // {
