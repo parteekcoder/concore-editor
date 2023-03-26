@@ -173,6 +173,9 @@ const reducer = (state, action) => {
     case T.SET_NEW_GRAPH_MODAL: {
         return { ...state, newGraphModal: action.payload };
     }
+    case T.CHANGE_RESET: {
+        return { ...state, resetEnabled: action.payload };
+    }
 
     case T.EDIT_TEXTFILE: {
         return {

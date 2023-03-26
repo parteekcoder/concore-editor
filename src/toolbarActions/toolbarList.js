@@ -1,7 +1,7 @@
 /* eslint-disable no-alert */
 import {
     FaSave, FaUndo, FaRedo, FaTrash, FaFileImport, FaPlus, FaDownload, FaEdit, FaRegTimesCircle, FaHistory,
-    FaHammer, FaBug, FaBomb, FaToggleOn, FaThermometerEmpty,
+    FaHammer, FaBug, FaBomb, FaToggleOn, FaThermometerEmpty, FaUndoAlt,
 } from 'react-icons/fa';
 
 import {
@@ -11,7 +11,7 @@ import {
 
 import {
     createNode, editElement, deleteElem, downloadImg, saveAction, saveGraphMLFile,
-    createFile, readFile, clearAll, undo, redo, viewHistory,
+    createFile, readFile, clearAll, undo, redo, viewHistory, resetAfterClear,
     toggleServer,
     // openSettingModal,
 } from './toolbarFunctions';
@@ -65,9 +65,18 @@ const toolbarList = (state, dispatcher) => [
         text: 'Empty',
         icon: FaThermometerEmpty,
         action: clearAll,
-        active: state.curGraphInstance,
+        active: state.curGraphInstance && !state.resetEnabled,
         visibility: true,
         hotkey: 'Ctrl+Backspace',
+    },
+    {
+        type: 'action',
+        text: 'Reset',
+        icon: FaUndoAlt,
+        action: resetAfterClear,
+        active: state.curGraphInstance && state.resetEnabled,
+        visibility: true,
+        hotkey: 'Ctrl+I',
     },
     { type: 'vsep' },
     {
@@ -75,7 +84,7 @@ const toolbarList = (state, dispatcher) => [
         text: 'Undo',
         icon: FaUndo,
         action: undo,
-        active: state.undoEnabled && state.curGraphInstance,
+        active: state.undoEnabled && state.curGraphInstance && !state.resetEnabled,
         visibility: true,
         hotkey: 'Ctrl+Z',
     },
@@ -84,7 +93,7 @@ const toolbarList = (state, dispatcher) => [
         text: 'Redo',
         icon: FaRedo,
         action: redo,
-        active: state.redoEnabled && state.curGraphInstance,
+        active: state.redoEnabled && state.curGraphInstance && !state.resetEnabled,
         visibility: true,
         hotkey: 'Ctrl+Shift+Z,Ctrl+Y',
     },

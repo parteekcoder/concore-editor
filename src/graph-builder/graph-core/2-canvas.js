@@ -32,7 +32,8 @@ class GraphCanvas extends Core {
         // eslint-disable-next-line no-alert
         if (!window.confirm('Do want to clear all elements?')) return false;
         this.cy.elements().forEach((el) => this.deleteElem(el.id(), 0));
-        this.actionArr = [];
+        // this.actionArr = [];
+        this.dispatcher({ type: T.CHANGE_RESET, payload: true });
         this.cy.emit('graph-modified');
         return true;
     }
