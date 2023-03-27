@@ -25,6 +25,7 @@ const initialState = {
     curGraphInstance: null,
     zoomLevel: 100,
     uploadedDirName: null,
+    resetEnabled: false,
 };
 
 const initialGraphState = {

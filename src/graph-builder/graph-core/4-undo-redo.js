@@ -138,6 +138,18 @@ class GraphUndoRedo extends GraphComponent {
         this.informUI();
     }
 
+    resetAfterClear() {
+        const limit = this.curActionIndex;
+        this.curActionIndex = 0;
+        while (this.curActionIndex !== this.actionArr.length && this.curActionIndex !== limit) {
+            this.performAction(this.actionArr[this.curActionIndex].equivalent);
+            this.curActionIndex += 1;
+        }
+        this.informUI();
+        this.dispatcher({ type: T.CHANGE_RESET, payload: false });
+        return true;
+    }
+
     setCurStatus() {
         super.setCurStatus();
         this.informUI();
