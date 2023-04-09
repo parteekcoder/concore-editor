@@ -71,7 +71,7 @@ const toolbarList = (state, dispatcher) => [
     },
     {
         type: 'action',
-        text: 'Reset',
+        text: 'Restore',
         icon: FaUndoAlt,
         action: resetAfterClear,
         active: state.curGraphInstance && state.resetEnabled,
