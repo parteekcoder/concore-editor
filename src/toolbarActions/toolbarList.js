@@ -1,8 +1,12 @@
 /* eslint-disable no-alert */
 import {
     FaSave, FaUndo, FaRedo, FaTrash, FaFileImport, FaPlus, FaDownload, FaEdit, FaRegTimesCircle, FaHistory,
-    FaHammer, FaBug, FaBomb, FaToggleOn, FaThermometerEmpty, FaUndoAlt,
+    FaHammer, FaBug, FaBomb, FaToggleOn, FaThermometerEmpty,
 } from 'react-icons/fa';
+
+import {
+    BsArrowRepeat,
+} from 'react-icons/bs';
 
 import {
     // FiChevronDown, FiChevronsDown, FiChevronsUp, FiChevronUp,
@@ -71,8 +75,8 @@ const toolbarList = (state, dispatcher) => [
     },
     {
         type: 'action',
-        text: 'Reset',
-        icon: FaUndoAlt,
+        text: 'Restore',
+        icon: BsArrowRepeat,
         action: resetAfterClear,
         active: state.curGraphInstance && state.resetEnabled,
         visibility: true,

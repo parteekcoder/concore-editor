@@ -7,6 +7,7 @@ class GraphCanvas extends Core {
 
     resetZoom() {
         this.cy.reset();
+        this.cy.center();
         this.dispatcher({ type: T.SET_ZOOM_LEVEL, payload: this.getZoom() });
     }
 
