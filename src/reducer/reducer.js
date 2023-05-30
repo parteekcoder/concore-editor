@@ -64,6 +64,9 @@ const reducer = (state, action) => {
             },
         };
     }
+    case T.SET_CONTRIBUTE_MODAL: {
+        return { ...state, contributeModal: action.payload };
+    }
     case T.Model_Close: return { ...state, ModelOpen: false };
     case T.ELE_SELECTED: return { ...state, eleSelected: true, eleSelectedPayload: action.payload };
     case T.ELE_UNSELECTED: return { ...state, eleSelected: false };

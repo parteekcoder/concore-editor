@@ -1,0 +1,20 @@
+.contribute-details{
+    padding: 20px;
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 20px;
+}
+
+.contribute-details *{
+    padding: 10px 5px;
+    text-align: center;
+}
+
+.contribute-details .expand{
+    grid-column: 1 / span 2;
+    padding: 0;
+}
+
+.contribute-details .btn{
+    width: 100%;
+}
