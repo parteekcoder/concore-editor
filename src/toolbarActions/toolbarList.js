@@ -12,7 +12,7 @@ import {
 import {
     createNode, editElement, deleteElem, downloadImg, saveAction, saveGraphMLFile,
     createFile, readFile, clearAll, undo, redo, openShareModal, viewHistory,
-    toggleServer,
+    toggleServer, contribute,
     // openSettingModal,
 } from './toolbarFunctions';
 
@@ -218,7 +218,7 @@ const toolbarList = (state, dispatcher) => [
         type: 'action',
         text: 'Contribute',
         icon: FiTriangle,
-        action: () => { window.open('https://github.com/ControlCore-Project/concore-editor', '_blank'); },
+        action: contribute,
         active: true,
         visibility: true,
     },

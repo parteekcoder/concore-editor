@@ -139,6 +139,10 @@ const clearAll = (state) => {
     getGraphFun(state).clearAll();
 };
 
+const contribute = (state, setState) => {
+    setState({ type: T.SET_CONTRIBUTE_MODAL, payload: true });
+};
+
 const editDetails = (state, setState) => {
     setState({
         type: T.SET_EDIT_DETAILS_MODAL,
@@ -177,5 +181,5 @@ export {
     createNode, editElement, deleteElem, downloadImg, saveAction, saveGraphMLFile,
     createFile, readFile, readTextFile, newProject, clearAll, editDetails, undo, redo,
     openShareModal, openSettingModal, viewHistory,
-    toggleServer,
+    toggleServer, contribute,
 };

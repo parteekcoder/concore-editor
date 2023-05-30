@@ -13,6 +13,7 @@ const initialState = {
     settingsModal: false,
     editDetailsModal: false,
     newGraphModal: false,
+    contributeModal: false,
 
     eleSelected: false,
     drawModeOn: true,

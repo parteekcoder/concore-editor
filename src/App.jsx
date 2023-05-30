@@ -12,6 +12,7 @@ import FileDragDrop from './component/File-drag-drop';
 import HistoryModal from './component/modals/History';
 import LocalFileBrowser from './component/fileBrowser';
 import FileEditModal from './component/modals/FileEdit';
+import ContributeModal from './component/modals/ContributeDetails';
 
 const app = () => {
     const [superState, dispatcher] = useReducer(reducer, initialState);
@@ -21,6 +22,7 @@ const app = () => {
             <ShareModal superState={superState} dispatcher={dispatcher} />
             <SettingsModal superState={superState} dispatcher={dispatcher} />
             <HistoryModal superState={superState} dispatcher={dispatcher} />
+            <ContributeModal superState={superState} dispatcher={dispatcher} />
             <FileEditModal superState={superState} dispatcher={dispatcher} />
             <GraphCompDetails
                 closeModal={() => dispatcher({ type: T.Model_Close })}
