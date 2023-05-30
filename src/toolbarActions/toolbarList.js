@@ -1,7 +1,7 @@
 /* eslint-disable no-alert */
 import {
-    FaSave, FaUndo, FaRedo, FaTrash, FaFileImport, FaPlus, FaDownload, FaEdit, FaRegTimesCircle, FaShare, FaHistory,
-    FaHammer, FaBug, FaBomb, FaToggleOn, FaThermometerEmpty,
+    FaSave, FaUndo, FaRedo, FaTrash, FaFileImport, FaPlus, FaDownload, FaEdit, FaRegTimesCircle, FaHistory,
+    FaHammer, FaBug, FaBomb, FaToggleOn, FaThermometerEmpty, FaTrashRestore,
 } from 'react-icons/fa';
 
 import {
@@ -12,7 +12,7 @@ import {
 import {
     createNode, editElement, deleteElem, downloadImg, saveAction, saveGraphMLFile,
     createFile, readFile, clearAll, undo, redo, openShareModal, viewHistory,
-    toggleServer, contribute,
+    toggleServer, contribute, resetAfterClear,
     // openSettingModal,
 } from './toolbarFunctions';
 
@@ -22,7 +22,7 @@ const toolbarList = (state, dispatcher) => [
         text: 'Node',
         icon: FaPlus,
         action: createNode,
-        active: true,
+        active: state.curGraphInstance,
         visibility: true,
         hotkey: 'Ctrl+G',
     },
@@ -57,7 +57,7 @@ const toolbarList = (state, dispatcher) => [
         text: 'Save As',
         icon: FaSave,
         action: (s, d) => saveAction(s, d),
-        active: true,
+        active: state.curGraphInstance,
         visibility: true,
     },
     {
@@ -65,9 +65,18 @@ const toolbarList = (state, dispatcher) => [
         text: 'Empty',
         icon: FaThermometerEmpty,
         action: clearAll,
-        active: true,
+        active: state.curGraphInstance && !state.resetEnabled,
         visibility: true,
         hotkey: 'Ctrl+Backspace',
+    },
+    {
+        type: 'action',
+        text: 'Restore',
+        icon: FaTrashRestore,
+        action: resetAfterClear,
+        active: state.curGraphInstance && state.resetEnabled,
+        visibility: true,
+        hotkey: 'Ctrl+I',
     },
     { type: 'vsep' },
     {
@@ -75,7 +84,7 @@ const toolbarList = (state, dispatcher) => [
         text: 'Undo',
         icon: FaUndo,
         action: undo,
-        active: state.undoEnabled,
+        active: state.undoEnabled && state.curGraphInstance && !state.resetEnabled,
         visibility: true,
         hotkey: 'Ctrl+Z',
     },
@@ -84,7 +93,7 @@ const toolbarList = (state, dispatcher) => [
         text: 'Redo',
         icon: FaRedo,
         action: redo,
-        active: state.redoEnabled,
+        active: state.redoEnabled && state.curGraphInstance && !state.resetEnabled,
         visibility: true,
         hotkey: 'Ctrl+Shift+Z,Ctrl+Y',
     },
@@ -94,7 +103,7 @@ const toolbarList = (state, dispatcher) => [
         text: 'Edit',
         icon: FaEdit,
         action: editElement,
-        active: (state.eleSelected && state.eleSelectedPayload.type !== 'MIX'),
+        active: state.curGraphInstance && state.eleSelected,
         visibility: true,
         hotkey: 'Ctrl+E',
     },
@@ -102,7 +111,7 @@ const toolbarList = (state, dispatcher) => [
         type: 'action',
         text: 'Delete',
         icon: FaTrash,
-        action: deleteElem,
+        action: () => deleteElem(state, dispatcher),
         active: state.eleSelected,
         visibility: true,
         hotkey: 'Delete,Backspace,Del,Clear',
@@ -113,7 +122,7 @@ const toolbarList = (state, dispatcher) => [
         text: 'History',
         icon: FaHistory,
         action: viewHistory,
-        active: true,
+        active: state.curGraphInstance,
         visibility: true,
     },
     { type: 'vsep' },
@@ -222,16 +231,16 @@ const toolbarList = (state, dispatcher) => [
         active: true,
         visibility: true,
     },
+    // {
+    //     type: 'action',
+    //     text: 'Share',
+    //     icon: FaShare,
+    //     action: openShareModal,
+    //     active: true,
+    //     visibility: true,
+    // },
     {
-        type: 'action',
-        text: 'Share',
-        icon: FaShare,
-        action: openShareModal,
-        active: true,
-        visibility: true,
-    },
-    {
-        type: 'menu',
+        type: state.curGraphInstance ? 'menu' : 'action',
         text: 'Export',
         icon: FaDownload,
         action: (s, d) => [
@@ -239,7 +248,7 @@ const toolbarList = (state, dispatcher) => [
             { fn: () => downloadImg(s, d, 'PNG'), name: 'PNG' },
         ],
         visibility: true,
-        active: true,
+        active: state.curGraphInstance,
     },
     { type: 'vsep' },
 ];

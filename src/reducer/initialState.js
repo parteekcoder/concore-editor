@@ -22,10 +22,11 @@ const initialState = {
     graphs: [],
     curGraphIndex: 0,
     viewHistory: false,
-    authorName: '',
     isWorkflowOnServer: false,
     curGraphInstance: null,
     zoomLevel: 100,
+    uploadedDirName: null,
+    resetEnabled: false,
 };
 
 const initialGraphState = {
@@ -33,7 +34,7 @@ const initialGraphState = {
     graphID: null,
     serverID: null,
     graphML: null,
-
+    authorName: '',
     component: null,
     instance: null,
     id: null,

@@ -99,7 +99,6 @@ const NodeDetails = ({
                         <input
                             className="nodeLabelFile"
                             type="text"
-                            required
                             label="Node Label file"
                             placeholder="Select file"
                             onChange={(e) => {

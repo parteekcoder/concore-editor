@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+import parser from '../graph-builder/graphml/parser';
 import { actionType as T } from '../reducer';
 
 const getGraphFun = (superState) => superState.curGraphInstance;
@@ -66,9 +68,10 @@ const editElement = (state, setState) => {
     }
 };
 
-const deleteElem = (state) => {
+const deleteElem = (state, dispatcher) => {
     const tid = new Date().getTime();
     state.eleSelectedPayload.ids.forEach((id) => getGraphFun(state).deleteElem(id, tid));
+    dispatcher({ type: T.ELE_UNSELECTED, payload: null });
 };
 
 const downloadImg = (state, setState, format) => {
@@ -86,13 +89,14 @@ async function saveGraphMLFile(state) {
             const stream = await graph.fileHandle.createWritable();
             await stream.write(getGraphFun(state).saveToFolder());
             await stream.close();
+            toast.success('File saved Successfully');
+        } else if (!graph.fileHandle) {
+            getGraphFun(state).saveWithoutFileHandle();
         } else {
-            // eslint-disable-next-line no-alert
-            alert('Switch to Edge/Chrome!');
+            toast.info('Switch to Edge/Chrome!');
         }
     } else {
-        // eslint-disable-next-line no-alert
-        alert('Switch to Edge/Chrome!');
+        toast.info('Switch to Edge/Chrome!');
     }
 }
 
@@ -102,11 +106,13 @@ const readFile = async (state, setState, file, fileHandle) => {
         const projectName = file.name;
         if (file.name.split('.').pop() === 'graphml') {
             fr.onload = (x) => {
-                setState({
-                    type: T.ADD_GRAPH,
-                    payload: {
-                        projectName, graphML: x.target.result, fileHandle, fileName: file.name,
-                    },
+                parser(x.target.result).then(({ authorName }) => {
+                    setState({
+                        type: T.ADD_GRAPH,
+                        payload: {
+                            projectName, graphML: x.target.result, fileHandle, fileName: file.name, authorName,
+                        },
+                    });
                 });
             };
             if (fileHandle) fr.readAsText(await fileHandle.getFile());
@@ -141,6 +147,9 @@ const clearAll = (state) => {
 
 const contribute = (state, setState) => {
     setState({ type: T.SET_CONTRIBUTE_MODAL, payload: true });
+}
+const resetAfterClear = (state) => {
+    getGraphFun(state).resetAfterClear();
 };
 
 const editDetails = (state, setState) => {
@@ -181,5 +190,6 @@ export {
     createNode, editElement, deleteElem, downloadImg, saveAction, saveGraphMLFile,
     createFile, readFile, readTextFile, newProject, clearAll, editDetails, undo, redo,
     openShareModal, openSettingModal, viewHistory,
-    toggleServer, contribute,
+    toggleServer, contribute, resetAfterClear,
+
 };

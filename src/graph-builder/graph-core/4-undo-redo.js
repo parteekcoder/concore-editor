@@ -83,19 +83,17 @@ class GraphUndoRedo extends GraphComponent {
         return r;
     }
 
-    addAction(inverse, equivalent, tid, authorName = this.superState.authorName) {
+    addAction(inverse, equivalent, tid) {
         if (tid === 0) return;
         this.actionArr.splice(this.curActionIndex);
 
         const actionIdentity = GraphUndoRedo.sequencify(equivalent).toString()
             + GraphUndoRedo.sequencify(equivalent).toString()
-            + tid
-            + authorName;
+            + tid;
         this.actionArr.push({
             tid,
             inverse,
             equivalent,
-            authorName,
             hash: md5(
                 `${actionIdentity}|${this.actionArr.length ? this.actionArr.at(-1).hash : ''}`,
             ),
@@ -138,6 +136,18 @@ class GraphUndoRedo extends GraphComponent {
             this.curActionIndex += 1;
         }
         this.informUI();
+    }
+
+    resetAfterClear() {
+        const limit = this.curActionIndex;
+        this.curActionIndex = 0;
+        while (this.curActionIndex !== this.actionArr.length && this.curActionIndex !== limit) {
+            this.performAction(this.actionArr[this.curActionIndex].equivalent);
+            this.curActionIndex += 1;
+        }
+        this.informUI();
+        this.dispatcher({ type: T.CHANGE_RESET, payload: false });
+        return true;
     }
 
     setCurStatus() {

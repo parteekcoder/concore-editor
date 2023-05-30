@@ -31,6 +31,13 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
     }, [fileState]);
 
     const handleSelectFile = (data) => {
+        const fileExtensions = ['jpeg', 'jpg', 'png', 'exe'];
+        if (fileExtensions.includes(data.fileObj.name.split('.').pop())) {
+            // eslint-disable-next-line no-alert
+            alert('Wrong file extension');
+            return;
+        }
+
         if (data.fileObj.name.split('.').pop() === 'graphml') {
             let foundi = -1;
             superState.graphs.forEach((g, i) => {
@@ -92,6 +99,7 @@ const LocalFileBrowser = ({ superState, dispatcher }) => {
         }
         setFileState([]);
         setFileState(state);
+        dispatcher({ type: T.SET_DIR_NAME, payload: state[0].key.split('/')[0] });
     };
 
     const newFeatureFile = async () => {

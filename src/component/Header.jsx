@@ -23,6 +23,7 @@ const setHotKeys = (actions) => {
             });
         }
     });
+    keys = keys.substring(0, keys.length - 1);
     hotkeys(keys, (event, handler) => {
         event.preventDefault();
         map[handler.shortcut].click();
@@ -41,7 +42,7 @@ const Header = ({ superState, dispatcher }) => {
                 {
                     superState.curGraphInstance ? `${
                         superState.curGraphInstance.projectName
-                    } - concore Editor` : ''
+                    } - concore Editor` : 'untitled'
                 }
             </section>
             <section className="toolbar">
