@@ -97,6 +97,7 @@ const reducer = (state, action) => {
                     graphML: action.payload.graphML,
                     fileHandle: action.payload.fileHandle || null,
                     fileName: action.payload.fileName,
+                    authorName: action.payload.authorName || '',
                 },
             ],
         };
@@ -139,12 +140,25 @@ const reducer = (state, action) => {
         return { ...state, fileRef: action.payload };
     }
 
+    case T.SET_FILE_HANDLE: {
+        const newState = { ...state };
+        newState.graphs = newState.graphs.map((g, index) => (
+            index === action.payload.curGraphIndex ? { ...g, fileHandle: action.payload.fileHandle }
+                : g
+        ));
+        return { ...newState };
+    }
+
     case T.SET_HISTORY_MODAL: {
         return { ...state, viewHistory: action.payload };
     }
 
     case T.SET_AUTHOR: {
-        return { ...state, authorName: action.payload };
+        const newState = { ...state };
+        newState.graphs = newState.graphs.map((g) => (
+            g.graphID === action.payload.graphID ? { ...g, [action.payload.type]: action.payload.value } : g
+        ));
+        return { ...newState };
     }
 
     case T.IS_WORKFLOW_ON_SERVER: {
@@ -159,6 +173,9 @@ const reducer = (state, action) => {
     case T.SET_NEW_GRAPH_MODAL: {
         return { ...state, newGraphModal: action.payload };
     }
+    case T.CHANGE_RESET: {
+        return { ...state, resetEnabled: action.payload };
+    }
 
     case T.EDIT_TEXTFILE: {
         return {
@@ -167,6 +184,10 @@ const reducer = (state, action) => {
             fileObj: action.payload.fileObj,
             fileHandle: action.payload.fileHandle,
         };
+    }
+
+    case T.SET_DIR_NAME: {
+        return { ...state, uploadedDirName: action.payload };
     }
 
     default:

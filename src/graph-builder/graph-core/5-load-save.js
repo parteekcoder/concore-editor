@@ -1,9 +1,11 @@
 import { saveAs } from 'file-saver';
+import { toast } from 'react-toastify';
 import localStorageManager from '../local-storage-manager';
 import graphmlBuilder from '../graphml/builder';
 import BendingDistanceWeight from '../calculations/bending-dist-weight';
 import GraphUndoRedo from './4-undo-redo';
 import graphMLParser from '../graphml/parser';
+import { actionType as T } from '../../reducer';
 
 class GraphLoadSave extends GraphUndoRedo {
     autoSaveIntervalId
@@ -58,6 +60,7 @@ class GraphLoadSave extends GraphUndoRedo {
             serverID: this.serverID,
             fileName: null,
             fileHandle: null,
+            authorName: this.authorName,
         };
         this.cy.nodes().forEach((node) => {
             if (this.shouldNodeBeSaved(node.id())) {
@@ -85,10 +88,9 @@ class GraphLoadSave extends GraphUndoRedo {
             }
         });
         graph.actionHistory = this.actionArr.map(({
-            tid, inverse, equivalent, authorName, hash,
+            tid, inverse, equivalent, hash,
         }) => ({
             tid,
-            authorName,
             inverse: GraphLoadSave.stringifyAction(inverse),
             equivalent: GraphLoadSave.stringifyAction(equivalent),
             hash,
@@ -124,6 +126,37 @@ class GraphLoadSave extends GraphUndoRedo {
             const fileName = prompt('Filename:');
             saveAs(blob, `${fileName || `${this.getName()}-concore`}.graphml`);
         }
+        toast.success('File saved Successfully');
+    }
+
+    async saveWithoutFileHandle() {
+        const { userAgent } = navigator;
+        if (userAgent.match(/firefox|fxios/i)) {
+            toast.info('Switch to Edge/Chrome!');
+            return;
+        }
+        const str = graphmlBuilder(this.jsonifyGraph());
+        const bytes = new TextEncoder().encode(str);
+        const blob = new Blob([bytes], { type: 'application/json;charset=utf-8' });
+        const options = {
+            types: [
+                {
+                    description: 'GraphMl Files',
+                    accept: {
+                        'text/graphml': ['.graphml'],
+                    },
+                },
+            ],
+        };
+        const handle = await window.showSaveFilePicker(options);
+        this.dispatcher({
+            type: T.SET_FILE_HANDLE,
+            payload: { curGraphIndex: this.superState.curGraphIndex, fileHandle: handle },
+        });
+        const stream = await handle.createWritable();
+        await stream.write(blob);
+        await stream.close();
+        toast.success('File saved Successfully');
     }
 
     saveToFolder() {
@@ -143,12 +176,13 @@ class GraphLoadSave extends GraphUndoRedo {
             this.addEdge({ ...edge, sourceID: edge.source, targetID: edge.target }, 0);
         });
         content.actionHistory.forEach(({
-            inverse, equivalent, tid, authorName,
+            inverse, equivalent, tid,
         }) => {
-            this.addAction(GraphLoadSave.parseAction(inverse), GraphLoadSave.parseAction(equivalent), tid, authorName);
+            this.addAction(GraphLoadSave.parseAction(inverse), GraphLoadSave.parseAction(equivalent), tid);
         });
         this.setProjectName(content.projectName);
         this.setServerID(this.serverID || content.serverID);
+        this.setProjectAuthor(content.authorName);
     }
 
     saveLocalStorage() {
