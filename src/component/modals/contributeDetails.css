@@ -18,14 +18,3 @@
 .contribute-details .btn{
     width: 100%;
 }
-
-.contribute-details .divider {
-    border-bottom: 1px solid #bbb;
-    width: 100%;
-    padding: 0;
-    margin: 20px 0;
-}
-.contribute-details .serverIDText{
-    width: calc( 100% - 20px);
-    margin-bottom: 20px;
-}
