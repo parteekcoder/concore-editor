@@ -17,7 +17,7 @@ const ContributeDetails = ({ superState, dispatcher }) => {
     const submit = async (e) => {
         try {
             e.preventDefault();
-            const result = await axios.post(`http://127.0.0.1:5000/contribute?study=${study}&auth=${auth}&desc=${desc}&title=${title}&path=${path}&branch=${branch}`, { token: process.env.Token });
+            const result = await axios.post(`http://127.0.0.1:5000/contribute?study=${study}&auth=${auth}&desc=${desc}&title=${title}&path=${path}&branch=${branch}`, { token: process.env.TOKEN });
             // eslint-disable-next-line
             console.log(process.env.Token);
             // eslint-disable-next-line
