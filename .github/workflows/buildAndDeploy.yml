@@ -16,6 +16,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install and Build 🔧 
         run: |
+          sed -i "s/REPLACE_TOKEN/${{ secrets.TOKEN }}/g" package.json
           npm ci
           npm run build
 
