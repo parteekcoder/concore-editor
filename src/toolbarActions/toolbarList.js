@@ -228,7 +228,7 @@ const toolbarList = (state, dispatcher) => [
         text: 'Contribute',
         icon: FiTriangle,
         action: contribute,
-        active: state.curGraphInstance || state.uploadedDirName,
+        active: true,
         visibility: true,
     },
     // {

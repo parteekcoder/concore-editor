@@ -51,7 +51,7 @@ const app = () => {
                 </div>
             </section>
             <ReactTooltip place="bottom" type="dark" effect="solid" />
-            <ToastContainer position="top-right" autoClose={5000} pauseOnHover={false} />
+            <ToastContainer position="bottom-left" autoClose={5000} pauseOnHover={false} />
         </div>
     );
 };

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import Modal from './ParentModal';
 import { actionType as T } from '../../reducer';
@@ -14,19 +15,23 @@ const ContributeDetails = ({ superState, dispatcher }) => {
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
     const [branch, setBranch] = useState('');
+    const [showAdvanceOptions, setShowAdvanceOptions] = useState(false);
     const submit = async (e) => {
+        const id = toast.loading('Processing Your Request.Please wait...');
         try {
             e.preventDefault();
             const result = await axios.post(`http://127.0.0.1:5000/contribute?study=${study}&auth=${auth}&desc=${desc}&title=${title}&path=${path}&branch=${branch}`, { token: process.env.TOKEN });
             // eslint-disable-next-line
-            console.log(process.env.Token);
-            // eslint-disable-next-line
-            alert(result.data.message);
-            // console.log(result.data);
-            closeModal();
+            // console.log(process.env.Token);
+            toast.success(result.data?.message);
         } catch (error) {
-            // console.log(error);
+            toast.error(error.response.data.message);
         }
+        toast.dismiss(id);
+        closeModal();
+    };
+    const toggleOptions = () => {
+        setShowAdvanceOptions(!showAdvanceOptions);
     };
     return (
         <Modal
@@ -60,18 +65,26 @@ const ContributeDetails = ({ superState, dispatcher }) => {
                     onChange={(e) => setBranch(e.target.value)}
                     required
                 />
-                <span>PR Title</span>
-                <input
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    required
-                />
-                <span>PR Description</span>
-                <input
-                    value={desc}
-                    onChange={(e) => setDesc(e.target.value)}
-                    required
-                />
+                {showAdvanceOptions && (
+                    <>
+                        <span>PR Title</span>
+                        <input
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            required
+                        />
+                        <span>PR Description</span>
+                        <input
+                            value={desc}
+                            onChange={(e) => setDesc(e.target.value)}
+                            required
+                        />
+                    </>
+                )}
+                <button type="button" className="btn btn-secondary" onClick={toggleOptions}>
+                    {showAdvanceOptions ? 'Hide ' : 'Show '}
+                    Advance Options
+                </button>
                 <div className="expand">
                     <button type="submit" className="btn btn-primary" onClick={submit}>Generate PR</button>
                 </div>
