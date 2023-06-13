@@ -25,7 +25,11 @@ const ContributeDetails = ({ superState, dispatcher }) => {
             // console.log(process.env.Token);
             toast.success(result.data?.message);
         } catch (error) {
-            toast.error(error.response.data.message);
+            if (error?.response?.status === 400) {
+                toast.info(error?.response?.data?.message);
+            } else {
+                toast.error(error?.response.data.message);
+            }
         }
         toast.dismiss(id);
         closeModal();
@@ -59,22 +63,22 @@ const ContributeDetails = ({ superState, dispatcher }) => {
                     onChange={(e) => setAuth(e.target.value)}
                     required
                 />
-                <span>Branch Name</span>
-                <input
-                    value={branch}
-                    onChange={(e) => setBranch(e.target.value)}
-                    required
-                />
                 {showAdvanceOptions && (
                     <>
-                        <span>PR Title</span>
+                        <span>Branch Name</span>
+                        <input
+                            value={branch}
+                            onChange={(e) => setBranch(e.target.value)}
+                            required
+                        />
+                        <span>Title of Study</span>
                         <input
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             required
                         />
-                        <span>PR Description</span>
-                        <input
+                        <span>Description of Study</span>
+                        <textarea
                             value={desc}
                             onChange={(e) => setDesc(e.target.value)}
                             required

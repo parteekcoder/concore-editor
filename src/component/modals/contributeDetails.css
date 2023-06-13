@@ -21,10 +21,16 @@
 .contribute-details .btn-secondary{
     align-self: flex-end;
 }
+.contribute-details textarea{
+    resize: vertical;
+    max-height: 200px;
+    max-width: 300px;
+    text-align: left;
+    max-lines: 10;
+}
 .Toastify__toast-container {
     /* width: 350px; */
     /* height: 80px; */
-    margin-right: 20px;
     padding: 3px 15px;
     display: inline-block;
   }
