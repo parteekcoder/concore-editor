@@ -17,12 +17,17 @@ const ContributeDetails = ({ superState, dispatcher }) => {
     const [branch, setBranch] = useState('');
     const [showAdvanceOptions, setShowAdvanceOptions] = useState(false);
     const submit = async (e) => {
-        const id = toast.loading('Processing Your Request.Please wait...');
+        const id = toast.loading('Processing your Request.Please wait...');
         try {
             e.preventDefault();
-            const result = await axios.post(`http://127.0.0.1:5000/contribute?study=${study}&auth=${auth}&desc=${desc}&title=${title}&path=${path}&branch=${branch}`, { token: process.env.TOKEN });
-            // eslint-disable-next-line
-            // console.log(process.env.Token);
+            const result = await axios.post('http://127.0.0.1:5000/contribute', {
+                study,
+                auth,
+                desc,
+                title,
+                path,
+                branch,
+            });
             toast.success(result.data?.message);
         } catch (error) {
             if (error?.response?.status === 400) {
