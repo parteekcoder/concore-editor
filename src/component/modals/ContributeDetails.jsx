@@ -78,19 +78,16 @@ const ContributeDetails = ({ superState, dispatcher }) => {
                         <input
                             value={branch}
                             onChange={(e) => setBranch(e.target.value)}
-                            required
                         />
                         <span>Title of Study</span>
                         <input
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            required
                         />
                         <span>Description of Study</span>
                         <textarea
                             value={desc}
                             onChange={(e) => setDesc(e.target.value)}
-                            required
                         />
                     </>
                 )}
