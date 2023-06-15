@@ -17,6 +17,10 @@ const ContributeDetails = ({ superState, dispatcher }) => {
     const [branch, setBranch] = useState('');
     const [showAdvanceOptions, setShowAdvanceOptions] = useState(false);
     const submit = async (e) => {
+        if (study === '' || path === '' || auth === '') {
+            toast.info('Please Provide necessary inputs');
+            return;
+        }
         const id = toast.loading('Processing your Request.Please wait...');
         try {
             e.preventDefault();
