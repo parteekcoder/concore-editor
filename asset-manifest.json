@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/concore-editor/static/css/main.b982c7b9.chunk.css",
-    "main.js": "/concore-editor/static/js/main.c5021b17.chunk.js",
-    "main.js.map": "/concore-editor/static/js/main.c5021b17.chunk.js.map",
+    "main.js": "/concore-editor/static/js/main.0c60efce.chunk.js",
+    "main.js.map": "/concore-editor/static/js/main.0c60efce.chunk.js.map",
     "runtime-main.js": "/concore-editor/static/js/runtime-main.7462be26.js",
     "runtime-main.js.map": "/concore-editor/static/js/runtime-main.7462be26.js.map",
     "static/css/2.722d9791.chunk.css": "/concore-editor/static/css/2.722d9791.chunk.css",
-    "static/js/2.5c3be9f2.chunk.js": "/concore-editor/static/js/2.5c3be9f2.chunk.js",
-    "static/js/2.5c3be9f2.chunk.js.map": "/concore-editor/static/js/2.5c3be9f2.chunk.js.map",
+    "static/js/2.c9ccf443.chunk.js": "/concore-editor/static/js/2.c9ccf443.chunk.js",
+    "static/js/2.c9ccf443.chunk.js.map": "/concore-editor/static/js/2.c9ccf443.chunk.js.map",
     "static/js/3.1dad3c1c.chunk.js": "/concore-editor/static/js/3.1dad3c1c.chunk.js",
     "static/js/3.1dad3c1c.chunk.js.map": "/concore-editor/static/js/3.1dad3c1c.chunk.js.map",
     "index.html": "/concore-editor/index.html",
@@ -15,13 +15,13 @@
     "service-worker.js.map": "/concore-editor/service-worker.js.map",
     "static/css/2.722d9791.chunk.css.map": "/concore-editor/static/css/2.722d9791.chunk.css.map",
     "static/css/main.b982c7b9.chunk.css.map": "/concore-editor/static/css/main.b982c7b9.chunk.css.map",
-    "static/js/2.5c3be9f2.chunk.js.LICENSE.txt": "/concore-editor/static/js/2.5c3be9f2.chunk.js.LICENSE.txt"
+    "static/js/2.c9ccf443.chunk.js.LICENSE.txt": "/concore-editor/static/js/2.c9ccf443.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.7462be26.js",
     "static/css/2.722d9791.chunk.css",
-    "static/js/2.5c3be9f2.chunk.js",
+    "static/js/2.c9ccf443.chunk.js",
     "static/css/main.b982c7b9.chunk.css",
-    "static/js/main.c5021b17.chunk.js"
+    "static/js/main.0c60efce.chunk.js"
   ]
 }
